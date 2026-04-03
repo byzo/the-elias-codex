@@ -14,6 +14,8 @@
 > - `learning` — Murmur proposes integrating a permanent learning.
 > - `vip_change` — Murmur proposes adding/removing a VIP.
 > - `priority_change` — Murmur proposes changing project priorities.
+> - `operational_issue` — A runtime self-check has detected a problem (notification failure, index inconsistency, etc.).
+> - `logging_repair` — A dual-write partially failed; a project file needs a missing log entry.
 > - `other` — Any other decision requiring Michael's input.
 >
 > **Statuses:** `pending` / `approved` / `rejected` / `deferred`

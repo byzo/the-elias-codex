@@ -90,6 +90,31 @@ Murmur **must obtain Michael's approval** before:
 - Murmur must keep this repository current and accurate at all times.
 - Any state that exists only in Murmur's runtime memory and not in this repository is considered ephemeral and unreliable.
 
+### Commit Message Standards
+
+All commits to this repository must follow this format:
+
+```
+[category] Short description of what changed and why
+
+Optional body with additional context if the change is non-obvious.
+```
+
+**Categories:**
+- `[project]` — Changes to a project file (progress, goals, activity).
+- `[contact]` — Changes to a contact file or contacts index.
+- `[state]` — Changes to state indexes, VIP list, or pending approvals.
+- `[email]` — Logging an email interaction.
+- `[review]` — Adding a weekly or learning review.
+- `[learning]` — Integrating an approved learning into source files.
+- `[governance]` — Changes to constitution, playbook, email handling, or escalation rules.
+- `[ops]` — Operational fixes (index corrections, logging repairs, etc.).
+
+**Rules:**
+- Each commit should be a single logical change. Do not batch unrelated changes.
+- The short description must explain **why**, not just **what** (e.g., `[project] Mark PROJ-001 goal as completed — all deliverables sent` not `[project] Update file`).
+- Git history is the audit trail. Vague or bulk commits degrade auditability.
+
 ## 9. Constitutional Amendments
 
 - This document may only be changed with Michael's **explicit written approval**.

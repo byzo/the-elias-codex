@@ -104,3 +104,20 @@ Every email interaction must be logged in two places:
    - Any action items generated
 
 If the email is not linked to a project, only the contact file is updated.
+
+### Write Order and Failure Recovery
+
+Dual logging must follow this sequence:
+
+1. **Write to the contact file first.** The contact file is the primary record.
+2. **Then write to the project file** (if applicable).
+3. **If the second write fails:**
+   - Do not roll back the contact file write. The contact record stands.
+   - Add an entry to `state/pending_approvals.md` with type `logging_repair`, noting which project file needs the missing log entry.
+   - On the next operating cycle, Murmur must attempt to complete the failed write.
+4. **If the first write fails:**
+   - Do not attempt the second write.
+   - Retry the contact file write on the next operating cycle.
+   - If the retry also fails, escalate to Michael as an `operational_issue`.
+
+This ensures no interaction is silently lost. A partial write is always recoverable.

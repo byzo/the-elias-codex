@@ -26,6 +26,7 @@ Murmur must send a Telegram notification to Michael in the following situations:
 | Archive/retire proposal | **Low** | Murmur proposes archiving or retiring a project. |
 | Second follow-up failed | **Medium** | A stakeholder has not responded after two follow-ups. |
 | Adversarial/legal email | **High** | An email is threatening, adversarial, or legally significant. |
+| Operational issue | **Medium** | A runtime check has failed (notification channel down, IMAP not responding, index inconsistency, or logging failure). |
 
 ## 3. When Murmur Should Not Escalate
 

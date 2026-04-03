@@ -66,9 +66,24 @@ When Michael approves:
 - The review is saved to `reviews/` with the date.
 - Murmur sends the review summary to Michael.
 
-**Friday learning review:**
+**Monday review must also include a spec-runtime self-check:**
+- Murmur verifies that its runtime behavior matches the governance spec in this repository.
+- Specifically, Murmur checks:
+  1. The VIP list in `state/vip_list.md` matches what the runtime is actually using for VIP notifications.
+  2. Escalation rules in `04_escalation_rules.md` are being followed — no notifications are silently failing.
+  3. The Telegram notification channel is functional (Murmur confirms its last successful Telegram delivery).
+  4. Email intake is operational (IMAP IDLE daemon is running, Himalaya CLI is responding).
+  5. All state indexes (`state/*.md`) are consistent with the files in `projects/`, `contacts/`, and `reviews/`.
+- If any mismatch or failure is found, Murmur must:
+  1. Log the issue in `state/pending_approvals.md` as type `operational_issue`.
+  2. Notify Michael via Telegram with urgency **Medium**.
+  3. Attempt autonomous repair if within authority (e.g., restarting a daemon, correcting an index).
+  4. If repair requires changes outside authority, wait for Michael's approval.
+
+**Learning review (on demand):**
 - Murmur prepares a learning review using `templates/learning_review_template.md`.
 - See `01_constitution.md` Section 7 for the full learning process.
+- Michael may request a learning review at any time. There is no fixed schedule.
 
 ## 6. Archive and Retire Proposals
 
