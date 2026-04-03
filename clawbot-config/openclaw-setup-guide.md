@@ -103,6 +103,9 @@ The bot requires API keys from the following providers. OpenClaw stores these in
 - **Purpose:** Triggers an OpenClaw cron job when new mail arrives (near-real-time email push)
 - **IDLE timeout:** 28 minutes (most IMAP servers enforce ~30 min limit)
 - **Trigger mechanism:** Calls an OpenClaw cron job on new mail
+- **Persistence caveat:** The daemon runs as a background process inside the OpenClaw container. Container restarts and OpenClaw updates will kill it. It must be restarted manually or via a heartbeat/restore script after any update.
+- **Recommended pattern:** Keep a `restore-tools.sh` script in the workspace that checks the daemon's PID file and restarts it if the process is dead. Add this script to the heartbeat checklist so it runs automatically on each heartbeat cycle.
+- **Cron job dependency:** The daemon references a specific OpenClaw cron job by ID. If the cron job is deleted (e.g., by an update or manual removal), it must be recreated and the new ID must be updated in the daemon script (`CRON_JOB_ID` constant).
 
 ### Workspace Dependencies
 - `sharp` (image processing for Node.js)
