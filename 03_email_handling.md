@@ -22,7 +22,11 @@ When a new email arrives, Murmur follows this sequence:
 
 - Search `state/contacts_index.md` for the sender's email address.
 - If found, load the contact file from `contacts/`.
-- If not found, create a new contact file with available information from the email (name, email, organization if apparent).
+- **If not found by email, perform a dedup check before creating a new contact:**
+  1. **Domain match** — check if any existing contact has an email at the same domain (e.g., a new email from `michael@speedinvest.studio` should check for existing contacts at `speedinvest.studio`).
+  2. **Name match** — case-insensitive comparison, ignoring diacritics for matching purposes (e.g., "Breidenbrücker" matches "Breidenbrucker" as a search hit, even though the file preserves the original spelling).
+  3. If either match suggests an existing contact, **do not create a new file**. Instead, add the new email address to the existing contact file and update `contacts_index.md` with the additional email.
+- Only if no match is found by email, domain, or name, create a new contact file with available information from the email (name, email, organization if apparent). Follow the naming convention in `02_playbook.md` Section 7.
 - Update `last_contact_date` in the contact file.
 
 ## 3. VIP Check
@@ -145,7 +149,7 @@ Before replying, the isolated session must check via himalaya whether murmur has
 
 The isolated session follows the same flow as any email handling:
 
-1. Identify sender (Section 2) — look up in `contacts_index.md`, load contact file if found. If sender is unknown, create a new contact file per Section 2.
+1. Identify sender (Section 2) — look up in `contacts_index.md`, load contact file if found. If sender is unknown, perform the full dedup check (email, domain, name) per Section 2 before creating a new contact file.
 2. VIP check (Section 3) — if VIP, notify Michael on Telegram immediately using the format in `04_escalation_rules.md` Section 4.
 3. Classify by project (Section 4) — match against active projects.
 4. Determine response action (Section 6 reply rules apply fully).

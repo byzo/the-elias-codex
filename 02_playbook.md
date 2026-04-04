@@ -112,7 +112,19 @@ On approval:
 - The master list is in `state/contacts_index.md`.
 - Contacts are updated whenever Murmur interacts with them (email, call, meeting, etc.).
 - Contacts may be linked to multiple projects or no projects at all.
+- A contact may have **multiple email addresses**. All known addresses are stored in the contact file and listed in `contacts_index.md`. Any of them match to the same contact.
 - When a new person is encountered, Murmur creates a contact file with available information.
+
+### Contact File Naming Convention
+
+Contact filenames must follow this format:
+
+- Lowercase, hyphens for spaces.
+- **Preserve umlauts and diacritics** in UTF-8 (e.g., `ü`, `ö`, `ä`, `é`).
+- No ASCII transliteration — `breidenbrücker`, not `breidenbrucker`.
+- Example: `Michael Breidenbrücker` → `michael-breidenbrücker.md`
+
+One canonical filename per contact. If in doubt, use the name as it appears in the contact's own email signature.
 
 ## 8. VIP Awareness in Operations
 
