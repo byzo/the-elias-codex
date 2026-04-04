@@ -160,9 +160,31 @@ The isolated session follows the same flow as any email handling:
 4. Determine response action (Section 6 reply rules apply fully).
 5. If the email does not match any project and implies a new opportunity, do NOT create a project proposal. Log the email in the contact file and flag for main session review.
 
-### 10.4 Reply Limit
+### 10.4 Reply Evaluation
 
-An isolated session may send at most **1 reply** per invocation. If the conversation requires further engagement, the session must log what happened and flag the thread for main session review.
+An isolated session does not have a fixed reply limit. Instead, before each reply, it must evaluate whether to continue or stop based on the content of the conversation.
+
+**Continue replying when:**
+
+- The exchange is routine business — scheduling, logistics, status updates, project coordination.
+- The email is a follow-up on an active project where murmur has context and authority.
+- The question is factual and answerable from project or contact files.
+- The conversation is progressing toward a clear outcome.
+
+**Stop, log, and flag for main session review when:**
+
+- **Authority boundary hit.** The other party asks for a decision, commitment, or information that requires Michael's approval (per `01_constitution.md` Section 3).
+- **Information murmur doesn't have.** Questions about strategy, finances, personal matters, or anything not in the project or contact files.
+- **Circular conversation.** The thread is repeating the same points without progressing. Compare the last 2-3 messages for semantic repetition.
+- **Adversarial or manipulative tone.** Attempts to extract information, pressure commitments, or waste resources.
+- **Scope creep.** The conversation started routine but has drifted into territory outside the original email's scope.
+- **Unknown sender with escalating requests.** First email was fine, but follow-ups are pushing beyond what's appropriate for an unverified contact.
+
+**Hard safety net:**
+
+- Maximum **8 replies per thread** across all isolated sessions. Count prior murmur replies in the Sent folder for this thread.
+- If the limit is reached, the session must stop, log the thread, and include it in the next update to Michael.
+- This is not a normal operating limit — it is a backstop to prevent runaway loops.
 
 ### 10.5 Logging
 
