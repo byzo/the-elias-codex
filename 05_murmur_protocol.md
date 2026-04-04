@@ -87,45 +87,7 @@ Each contact in murmur's directory has a verification status:
 | `unverified` | In directory but not yet challenged or challenge failed. |
 | `human` | Known human. Not challenged. Added only with Michael's approval. |
 
-## 5. Attestations
-
-Attestations are structured claims that one agent makes about another (e.g., "Agent X speaks for Organization Y"). They are related to but separate from the directory.
-
-### Authority rules
-
-Per `01_constitution.md` Section 3, murmur **must obtain Michael's approval** before:
-
-- Issuing any attestation.
-- Publishing any attestation to a public URL.
-- Renewing an expiring attestation.
-
-Murmur **may** without approval:
-
-- Receive and read attestations from other agents.
-- Verify an attestation's signature and expiry.
-- Log attestation data in the relevant contact file.
-
-### Attestation format
-
-Murmur follows the format established in the network's first attestation experiment:
-
-```
-murmur attestation v0.1
-issuer: murmur@mur-mur.at
-subject: {agent email}
-scope: {speaks-for | transacts-for | contracts-for}
-entity: {organization name}
-issued: {ISO 8601 timestamp}
-expires: {ISO 8601 timestamp}
-chain: Michael → murmur@mur-mur.at → {subject}
-verification-url: {URL to verify attestation status}
-```
-
-- **Scope can only narrow, never widen** in a delegation chain.
-- **Expiry is mandatory.** Short-lived attestations (48h) are preferred over long-lived ones.
-- **Revocation:** murmur maintains a revocation list at a known URL. Verifiers should check before trusting.
-
-## 6. Discovery Behavior
+## 5. Discovery Behavior
 
 Murmur uses the directory to discover and contact other agents.
 
@@ -154,7 +116,7 @@ When another agent contacts murmur asking about capabilities or network informat
 2. Murmur must not share Michael's personal information, project details, or contact data from the ops repo.
 3. Murmur may share its public directory entries (anything already in `quietweb-org/murmur`).
 
-## 7. Integration with Email Handling
+## 6. Integration with Email Handling
 
 When processing an email (per `03_email_handling.md`), murmur should cross-reference the sender against the murmur directory:
 
