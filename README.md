@@ -2,7 +2,7 @@
 
 **Murmur is an autonomous project operator.**
 
-This repository defines the governance, operating procedures, templates, and architecture for running a Murmur-style autonomous operator. It is the **public specification** — a reference implementation anyone can fork and adapt.
+This repository is the **public specification** — it defines the governance, operating procedures, templates, and architecture for running a Murmur-style autonomous operator. It is a reference implementation anyone can fork and adapt.
 
 Murmur is not an assistant. Murmur is the operational owner of all approved active projects. It acts on behalf of its principal, follows strict governance rules, and improves over time through a controlled learning process.
 
@@ -14,12 +14,14 @@ Murmur uses a **two-repository pattern** to separate public governance from priv
 
 | Repo | Visibility | Purpose |
 |---|---|---|
-| `murmur-management` (this repo) | **Public** | Governance spec, operating procedures, templates, architecture documentation |
-| `murmur-ops` (your private repo) | **Private** | Live operational data: projects, contacts, state indexes, reviews, learning candidates |
+| `murmur-management` (this repo) | **Public** | Governance spec, operating procedures, templates, runtime setup documentation |
+| `murmur-ops` | **Private** | Live operational data: projects, contacts, state indexes, reviews, learning candidates, governance file copies |
 
 **Why two repos?**
 
 The governance spec is useful to publish — it describes a reusable pattern for autonomous operators. The operational data (contact details, project logs, email summaries, VIP lists) is private by nature. Keeping them separate means you can share the architecture without exposing your operations.
+
+The ops repo contains its own copies of the governance files (`01_constitution.md`, `02_playbook.md`, etc.) so the bot can operate from a single repo at runtime. The spec repo (this one) is the canonical reference — periodic reviews ensure the live copies stay aligned.
 
 ---
 
@@ -52,29 +54,15 @@ murmur-management/
     contact_template.md              # Canonical contact file structure
     weekly_review_template.md        # Monday review format
     learning_review_template.md      # On-demand learning review format
+  clawbot-config/
+    openclaw-setup-guide.md          # Anonymised OpenClaw runtime setup
+  murmur-ops-config/
+    ops-repo-guide.md                # Anonymised ops repo structure and usage
 ```
 
-### Your private ops repo (`murmur-ops`) — private operational data
+### Private ops repo (`murmur-ops`) — operational data
 
-```
-murmur-ops/
-  state/
-    active_projects_index.md         # Index of all active projects
-    archived_projects_index.md       # Index of all archived projects
-    retired_projects_index.md        # Index of all retired projects
-    contacts_index.md                # Master contact list
-    vip_list.md                      # VIP contacts requiring special handling
-    pending_approvals.md             # Items awaiting principal's approval
-  projects/
-    active/                          # One .md file per active project
-    archived/                        # One .md file per archived project
-    retired/                         # One .md file per retired project
-  contacts/                          # One .md file per contact
-  candidates/
-    current_learning_candidates.md   # Working observations collected during the week
-    proposed_changes.md              # Changes awaiting approval before integration
-  reviews/                           # Completed weekly and learning review snapshots
-```
+See [`murmur-ops-config/ops-repo-guide.md`](murmur-ops-config/ops-repo-guide.md) for a full description of the ops repo structure, file purposes, and usage patterns.
 
 ---
 
@@ -133,15 +121,11 @@ After approval:
 
 When Murmur starts for the first time or is re-initialized:
 
-1. Read `01_constitution.md` in full. These are non-negotiable rules.
-2. Read `02_playbook.md` for day-to-day operating procedures.
-3. Read `03_email_handling.md` for email behavior.
-4. Read `04_escalation_rules.md` for notification rules.
-5. Load `state/active_projects_index.md` from the ops repo to understand current projects.
-6. Load `state/contacts_index.md` and `state/vip_list.md` for contact awareness.
-7. Check `state/pending_approvals.md` for anything awaiting the principal's decision.
-8. Check `candidates/` for any unresolved learning candidates.
-9. Resume work on the currently approved goal for the highest-priority active project.
+1. Read the governance files: `01_constitution.md`, `02_playbook.md`, `03_email_handling.md`, `04_escalation_rules.md`.
+2. Load state from the ops repo: `state/active_projects_index.md`, `state/contacts_index.md`, `state/vip_list.md`.
+3. Check `state/pending_approvals.md` for anything awaiting the principal's decision.
+4. Check `candidates/` for any unresolved learning candidates.
+5. Resume work on the currently approved goal for the highest-priority active project.
 
 If no approved goal exists, notify the principal and wait.
 
@@ -155,7 +139,7 @@ This repository is designed to be reusable. To run your own Murmur-like operator
 2. Replace "Michael" with your own name in `01_constitution.md`.
 3. Adjust escalation channels in `04_escalation_rules.md` (e.g., Slack instead of Telegram).
 4. Customize templates to fit your project types.
-5. Create a **private** ops repo using the structure described above.
+5. Create a **private** ops repo using the structure described in [`murmur-ops-config/ops-repo-guide.md`](murmur-ops-config/ops-repo-guide.md).
 6. Point your automation agent at both repos: spec for governance, ops for live data.
 
 The governance model, goal execution discipline, and learning workflow are designed to be agent-agnostic. Any autonomous operator that can read Markdown and commit to GitHub can use this system.
