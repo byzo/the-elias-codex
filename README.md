@@ -146,6 +146,55 @@ The governance model, goal execution discipline, and learning workflow are desig
 
 ---
 
+## Best Practices: Building the System with Two AIs
+
+This governance spec was not written in isolation — it was built iteratively using two AI agents working alongside the principal. Understanding this workflow is useful if you're setting up your own system.
+
+### The two-agent setup
+
+Once [OpenClaw](https://openclaw.ai/) was installed and the bot was running, we used two separate AI agents in parallel:
+
+- **A coding agent** (Claude Code in the terminal) — used to draft governance rules, edit spec files, manage Git, create PRs, and push changes to the public `murmur-management` repo.
+- **The bot itself** (murmur, running on OpenClaw) — the live operator that reads the spec, handles email, manages projects, and commits operational data to the private `murmur-ops` repo.
+
+The principal sits between them, routing decisions and challenging both sides.
+
+### The workflow
+
+The typical cycle looks like this:
+
+1. **Identify a gap or incident.** Something breaks, or a review reveals a missing rule. This can come from the bot's own reports, the principal's observation, or the coding agent's analysis.
+2. **Draft the fix in the coding agent.** The coding agent edits the spec files, creates a PR, and merges it to `murmur-management`.
+3. **Prompt the bot to integrate.** The principal sends the bot a message (via Telegram or web chat) telling it to pull the latest spec, sync governance files to the ops repo, and update its runtime behavior (e.g., rewrite a cron job message).
+4. **Verify.** The principal or the coding agent checks the ops repo to confirm the changes landed correctly.
+5. **Test.** Trigger the scenario that caused the original issue and verify the fix works.
+
+### Cross-challenging decisions
+
+A key part of the process is **using each agent to challenge the other**:
+
+- When the bot proposes a structural change (e.g., splitting into two repos), take it to the coding agent: *"Does this make sense? What are the risks?"*
+- When the coding agent drafts a new rule, send it to the bot: *"Read this and tell me if it's consistent with how you actually operate."*
+- When the bot reports an incident, have the coding agent verify the claims against the actual repo state — commits, file contents, timestamps.
+- When the coding agent proposes a fix, ask the bot whether it covers all the runtime edge cases.
+
+Neither agent has full context on its own. The coding agent can see the repos but not the bot's runtime state. The bot can see its own workspace but doesn't have the coding agent's analytical detachment. The principal bridges the gap.
+
+### Practical tips
+
+- **The spec repo is the canonical reference.** All governance changes go here first, then get synced to the ops repo. Never let the bot modify governance rules directly in the ops repo without updating the spec.
+- **Always verify.** When the bot says "done," check the actual commits. Early on, we caught cases where the bot reported completing steps it hadn't actually committed.
+- **Be explicit about which repo to write to.** The bot will default to wherever it's working. If the spec says "commit to ops," say it in every prompt until the pattern is established.
+- **The bot will find gaps you didn't anticipate.** The overnight email incident that led to Section 10 (isolated session rules) was discovered because the bot ran unsupervised and exposed a real architectural flaw. Treat incidents as spec improvements, not failures.
+- **Prompt the bot with the full context.** When syncing governance changes, tell it exactly which files changed, what sections are new, and what to commit. Vague instructions lead to partial syncs or wrong repos.
+- **Use the bot's own reports as input.** The bot can generate detailed incident reports and self-assessments. Feed these to the coding agent to draft fixes — it's faster than explaining the problem from scratch.
+
+### The result
+
+After a few iterations, the system becomes self-reinforcing: the bot operates under the spec, discovers edge cases through real usage, reports them, and the principal uses the coding agent to close the gaps. Each cycle makes the governance tighter and the bot more reliable.
+
+---
+
 ## License
 
 See the repository license for terms.
