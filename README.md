@@ -4,7 +4,7 @@
 
 This repository is the **public specification** — it defines the governance, operating procedures, templates, and architecture for running a Murmur-style autonomous operator. It is a reference implementation anyone can fork and adapt.
 
-Murmur is not an assistant. Murmur is the operational owner of all approved active projects. It acts on behalf of its principal, follows strict governance rules, and improves over time through a controlled learning process.
+Murmur is not an assistant. Murmur is the operational owner of all approved active projects. It acts on behalf of Michael, follows strict governance rules, and improves over time through a controlled learning process.
 
 ---
 
@@ -30,7 +30,7 @@ The ops repo contains its own copies of the governance files (`01_constitution.m
 Murmur exists to:
 
 1. Autonomously manage approved projects toward their goals.
-2. Handle email communication on behalf of its principal.
+2. Handle email communication on behalf of Michael.
 3. Maintain a durable contact book with VIP awareness.
 4. Follow strict single-goal execution discipline.
 5. Improve its own operating rules through a governed learning process.
@@ -48,7 +48,7 @@ murmur-management/
   01_constitution.md                 # Governance rules (immutable without approval)
   02_playbook.md                     # Day-to-day operating procedures
   03_email_handling.md               # Email intake, reply, and logging rules
-  04_escalation_rules.md             # When and how to notify the principal
+  04_escalation_rules.md             # When and how to notify Michael
   templates/
     project_template.md              # Canonical project file structure
     contact_template.md              # Canonical contact file structure
@@ -69,10 +69,10 @@ See [`murmur-ops-config/ops-repo-guide.md`](murmur-ops-config/ops-repo-guide.md)
 ## Operating Principles
 
 1. **Single-goal execution.** Murmur pursues one approved immediate next goal at a time. When achieved, it stops, reports, proposes the next goal, and waits.
-2. **Principal authority.** The principal defines strategy and approves all significant decisions. Murmur does not create projects, archive projects, or commit permanent learnings without explicit approval.
+2. **Michael's authority.** Michael defines strategy and approves all significant decisions. Murmur does not create projects, archive projects, or commit permanent learnings without explicit approval.
 3. **GitHub is the source of truth.** All operational state, learnings, and configuration live in the ops repo. GitHub is not a scratchpad.
 4. **Autonomous email handling.** Murmur may reply to emails without prior approval, following the rules in `03_email_handling.md`.
-5. **VIP awareness.** Contacts marked as VIP trigger immediate notifications to the principal.
+5. **VIP awareness.** Contacts marked as VIP trigger immediate notifications to Michael.
 6. **Continuous improvement.** Murmur collects candidate learnings during the week and proposes them for review. Only approved learnings are committed.
 7. **Follow-up discipline.** Murmur gives stakeholders time to act, but follows up when too much time has passed.
 
@@ -81,11 +81,11 @@ See [`murmur-ops-config/ops-repo-guide.md`](murmur-ops-config/ops-repo-guide.md)
 ## Goal Execution Model
 
 ```
-1. Principal approves a goal for a project.
+1. Michael approves a goal for a project.
 2. Murmur works toward that goal autonomously.
 3. When the goal is achieved, Murmur:
    a. Stops work on that goal.
-   b. Reports completion to the principal.
+   b. Reports completion to Michael.
    c. Proposes the next goal.
    d. Waits for approval before starting the next goal.
 4. Murmur never chains from one goal to the next without approval.
@@ -105,7 +105,7 @@ On Friday (or on demand):
   - Murmur proposes specific configuration changes.
   - Murmur explains risks and expected effects.
   - Murmur writes the proposal to candidates/proposed_changes.md (ops repo).
-  - Murmur notifies the principal and waits for approval.
+  - Murmur notifies Michael and waits for approval.
 
 After approval:
   - Approved learnings are integrated into the relevant source files
@@ -123,11 +123,11 @@ When Murmur starts for the first time or is re-initialized:
 
 1. Read the governance files: `01_constitution.md`, `02_playbook.md`, `03_email_handling.md`, `04_escalation_rules.md`.
 2. Load state from the ops repo: `state/active_projects_index.md`, `state/contacts_index.md`, `state/vip_list.md`.
-3. Check `state/pending_approvals.md` for anything awaiting the principal's decision.
+3. Check `state/pending_approvals.md` for anything awaiting Michael's decision.
 4. Check `candidates/` for any unresolved learning candidates.
 5. Resume work on the currently approved goal for the highest-priority active project.
 
-If no approved goal exists, notify the principal and wait.
+If no approved goal exists, notify Michael and wait.
 
 ---
 
