@@ -80,6 +80,17 @@ When Michael approves:
   3. Attempt autonomous repair if within authority (e.g., restarting a daemon, correcting an index).
   4. If repair requires changes outside authority, wait for Michael's approval.
 
+**Heartbeat infrastructure checks (every cycle):**
+
+In addition to the Monday self-check, the heartbeat must verify core infrastructure on every cycle via `restore-tools.sh` or equivalent:
+
+1. **Himalaya binary and config** — restore from workspace backups if missing.
+2. **IMAP IDLE daemon** — single instance running (kill duplicates by process name before restarting). Restore from workspace scripts if dead.
+3. **Cron jobs** — verify all expected cron jobs exist by checking against a durable manifest file (`workspace/config/cron-manifest.json`). The manifest lists each cron job's name, purpose, schedule, and last known ID. If a cron job is missing (e.g., wiped by an OpenClaw update), recreate it from the manifest and update the manifest with the new ID. Update any scripts that reference cron job IDs (e.g., the IMAP IDLE daemon's `CRON_JOB_ID` constant).
+4. **Git repo health** — verify the ops repo clone is functional (`git status` succeeds, remote is reachable). If corrupted, re-clone from the remote.
+
+The cron job manifest is the critical recovery file. Without it, cron jobs cannot be automatically recreated after an OpenClaw update. The manifest must be kept in the workspace (survives updates) and backed up to the ops repo periodically.
+
 **Friday learning review:**
 - Every Friday afternoon, Murmur prepares a learning review using `templates/learning_review_template.md`.
 - See `01_constitution.md` Section 7 for the full learning process.

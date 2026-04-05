@@ -115,7 +115,44 @@ The bot requires API keys from the following providers. OpenClaw stores these in
 
 ## Cron Jobs
 
-All cron jobs survive reboots (stored in OpenClaw config) but may be wiped by OpenClaw updates. If wiped, recreate and update any IDs referenced in scripts.
+All cron jobs survive reboots (stored in OpenClaw config) but may be wiped by OpenClaw updates.
+
+### Cron Job Resilience
+
+Cron jobs are the most fragile part of the system — if wiped by an update, email handling, uptime monitoring, and scheduled reviews all stop silently.
+
+**Solution: Cron job manifest file.**
+
+Maintain a durable manifest (`workspace/config/cron-manifest.json`) listing all expected cron jobs:
+
+```json
+{
+  "cron_jobs": [
+    {
+      "name": "Website Uptime Check",
+      "schedule": "every 5 minutes",
+      "purpose": "Curl site, trigger recovery if down",
+      "last_known_id": "<id>"
+    },
+    {
+      "name": "Handle New Mail",
+      "schedule": "manual (IMAP IDLE trigger)",
+      "purpose": "Process incoming email per governance rules",
+      "last_known_id": "<id>",
+      "referenced_by": ["imap-idle/murmur-mail.py"]
+    }
+  ]
+}
+```
+
+On every heartbeat, `restore-tools.sh` checks:
+1. Do all manifest cron jobs exist? (Check by name via OpenClaw API or CLI)
+2. If missing, recreate from the manifest definition
+3. Update `last_known_id` in the manifest with the new ID
+4. Update any scripts that reference the old ID (e.g., `CRON_JOB_ID` in `murmur-mail.py`)
+5. If recreation fails, notify the principal on Telegram
+
+This file lives in the workspace (survives updates) and should be periodically backed up to the ops repo.
 
 ### 1. Website Uptime Check
 - **Interval:** Every 5 minutes
