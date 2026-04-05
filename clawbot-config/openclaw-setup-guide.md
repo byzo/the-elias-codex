@@ -156,9 +156,10 @@ This file lives in the workspace (survives updates) and should be periodically b
 
 ### 1. Website Uptime Check
 - **Interval:** Every 5 minutes
-- **Model:** Use the lightest available model (e.g., Claude Haiku) with `--light-context` to minimize cost
-- **Action:** Shell script that curls the static site. If down, triggers a recovery cron job. If up, exits silently.
-- **Cost tip:** Running full LLM context every 5 minutes is expensive (~$16/day on Sonnet). Use a shell script for the check and only invoke the LLM for recovery.
+- **Model:** Lightest available (e.g., Claude Haiku) with `--light-context`
+- **Session:** Isolated, with `--no-deliver` (no Telegram notification on success)
+- **Action:** Runs a shell script (`uptime-check.sh`) that curls the static site. If up, exits silently. If down, triggers the recovery cron job.
+- **Cost note:** This cron job spawns an LLM session every 5 minutes (288/day). Using Haiku + `--light-context` + a shell script keeps token cost minimal (~$0.50-1/day). Avoid using a larger model or full context — that would cost ~$16/day on Sonnet.
 
 ### 2. Handle New Mail
 - **Trigger:** On-demand (triggered by the IMAP IDLE daemon, not on a fixed schedule)
