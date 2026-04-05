@@ -88,6 +88,7 @@ In addition to the Monday self-check, the heartbeat must verify core infrastruct
 2. **IMAP IDLE daemon** — single instance running (kill duplicates by process name before restarting). Restore from workspace scripts if dead.
 3. **Cron jobs** — verify all expected cron jobs exist by checking against a durable manifest file (`workspace/config/cron-manifest.json`). The manifest lists each cron job's name, purpose, schedule, and last known ID. If a cron job is missing (e.g., wiped by an OpenClaw update), recreate it from the manifest and update the manifest with the new ID. Update any scripts that reference cron job IDs (e.g., the IMAP IDLE daemon's `CRON_JOB_ID` constant).
 4. **Git repo health** — verify the ops repo clone is functional (`git status` succeeds, remote is reachable). If corrupted, re-clone from the remote.
+5. **Unpushed commits** — run `git status` and check for commits ahead of `origin/main`. If any exist, push them immediately. Local-only commits are at risk of being lost on container restart or update.
 
 The cron job manifest is the critical recovery file. Without it, cron jobs cannot be automatically recreated after an OpenClaw update. The manifest must be kept in the workspace (survives updates) and backed up to the ops repo periodically.
 

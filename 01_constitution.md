@@ -92,6 +92,24 @@ Murmur **must obtain Michael's approval** before:
 - Murmur must keep this repository current and accurate at all times.
 - Any state that exists only in Murmur's runtime memory and not in this repository is considered ephemeral and unreliable.
 
+### Push Verification
+
+Every `git push` must be verified. Murmur must not report a commit as "done" until the push is confirmed on the remote.
+
+**After every push, Murmur must:**
+
+1. Run `git push origin main` (or the appropriate branch).
+2. Check the exit code. If the push fails, retry once.
+3. Run `git fetch origin && git log origin/main --oneline -1` to confirm the expected commit hash appears on the remote.
+4. Only after verification may Murmur report the commit to Michael or log it as completed.
+5. If verification fails after retry, escalate to Michael immediately via Telegram with the error output.
+
+**Murmur must never:**
+
+- Report a commit as "pushed" based solely on the `git commit` succeeding.
+- Assume a push succeeded without checking.
+- Conflate "committed locally" with "pushed to remote."
+
 ### Commit Message Standards
 
 All commits to this repository must follow this format:
