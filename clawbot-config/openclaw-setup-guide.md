@@ -105,7 +105,8 @@ The bot requires API keys from the following providers. OpenClaw stores these in
 ### IMAP IDLE Daemon
 - **Script:** Python 3 script that watches the inbox via IMAP IDLE
 - **Purpose:** Triggers an OpenClaw cron job when new mail arrives (near-real-time email push)
-- **IDLE timeout:** 28 minutes (most IMAP servers enforce ~30 min limit)
+- **IDLE timeout:** 28 minutes configured, but some providers (e.g. OVH Zimbra) drop IDLE after ~10 minutes with an empty `b''` response rather than a standard DONE. The daemon reconnects every ~10 min as a result.
+- **Reconnect gap fix:** After every reconnect, run `SEARCH UNSEEN` before re-entering IDLE and trigger the mail handler for any hits. Without this, emails arriving during the reconnect window are silently missed.
 - **Trigger mechanism:** On new mail, marks message as SEEN, updates the cron job message with sender/subject/preview, and triggers the cron job
 - **Persistence:** The daemon runs as a background process inside the container. Container restarts and OpenClaw updates will kill it.
 - **Recommended pattern:** Keep a `restore-tools.sh` script in the workspace that checks the daemon's PID file and restarts it if dead. Run this script on every heartbeat cycle.
