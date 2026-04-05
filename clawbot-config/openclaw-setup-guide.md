@@ -48,6 +48,7 @@ The bot requires API keys from the following providers. OpenClaw stores these in
 | **OpenAI** | Fallback LLM + image model | API key | Standard billing |
 | **Telegram** | Bot communication channel | Bot token | Created via @BotFather |
 | **Email (IMAP)** | Inbound/outbound email | IMAP login + password | Any IMAP-capable provider (e.g., OVH Zimbra) |
+| **GitHub** | Repo access for governance and ops | Personal access token | Classic PAT recommended if using GitHub orgs |
 
 ---
 
@@ -93,72 +94,72 @@ The bot requires API keys from the following providers. OpenClaw stores these in
 - **Tool:** [Himalaya](https://github.com/pimalaya/himalaya) (Rust-based CLI email client)
 - **Protocol:** IMAP over TLS
 - **Provider:** Any IMAP-capable email provider
-- **Commands:**
+- **Key commands:**
   - Send: `himalaya message send` (pipe RFC822 to stdin)
-  - Read: `himalaya envelope list` / `himalaya message read <id>`
-- Himalaya config is stored inside the container and set up during installation.
+  - Read inbox: `himalaya envelope list` / `himalaya message read <id>`
+  - Read sent: `himalaya envelope list --folder Sent` (used for duplicate reply checks)
+  - Export raw: `himalaya message export <id>` (for extracting Message-ID headers for threading)
+- **Threading:** Set `In-Reply-To` and `References` headers manually. Export the original message first to get its `Message-ID`.
+- **Persistence:** Himalaya binary and config are installed inside the container and will be wiped by OpenClaw updates. Keep backups in the workspace and use a restore script (see below).
 
 ### IMAP IDLE Daemon
 - **Script:** Python 3 script that watches the inbox via IMAP IDLE
 - **Purpose:** Triggers an OpenClaw cron job when new mail arrives (near-real-time email push)
 - **IDLE timeout:** 28 minutes (most IMAP servers enforce ~30 min limit)
-- **Trigger mechanism:** Calls an OpenClaw cron job on new mail
-- **Persistence caveat:** The daemon runs as a background process inside the OpenClaw container. Container restarts and OpenClaw updates will kill it. It must be restarted manually or via a heartbeat/restore script after any update.
-- **Recommended pattern:** Keep a `restore-tools.sh` script in the workspace that checks the daemon's PID file and restarts it if the process is dead. Add this script to the heartbeat checklist so it runs automatically on each heartbeat cycle.
-- **Cron job dependency:** The daemon references a specific OpenClaw cron job by ID. If the cron job is deleted (e.g., by an update or manual removal), it must be recreated and the new ID must be updated in the daemon script (`CRON_JOB_ID` constant).
-
-### Workspace Dependencies
-- `sharp` (image processing for Node.js)
+- **Trigger mechanism:** On new mail, marks message as SEEN, updates the cron job message with sender/subject/preview, and triggers the cron job
+- **Persistence:** The daemon runs as a background process inside the container. Container restarts and OpenClaw updates will kill it.
+- **Recommended pattern:** Keep a `restore-tools.sh` script in the workspace that checks the daemon's PID file and restarts it if dead. Run this script on every heartbeat cycle.
+- **Cron job dependency:** The daemon references a specific OpenClaw cron job by ID. If the cron job is deleted (e.g., by an update), it must be recreated and the new ID updated in the daemon script.
 
 ---
 
 ## Cron Jobs
 
+All cron jobs survive reboots (stored in OpenClaw config) but may be wiped by OpenClaw updates. If wiped, recreate and update any IDs referenced in scripts.
+
 ### 1. Website Uptime Check
 - **Interval:** Every 5 minutes
-- **Action:** Curls the static site, auto-repairs if down (reload Caddy, check container), alerts the principal on Telegram only if unfixable
-- **Session:** Isolated
+- **Model:** Use the lightest available model (e.g., Claude Haiku) with `--light-context` to minimize cost
+- **Action:** Shell script that curls the static site. If down, triggers a recovery cron job. If up, exits silently.
+- **Cost tip:** Running full LLM context every 5 minutes is expensive (~$16/day on Sonnet). Use a shell script for the check and only invoke the LLM for recovery.
 
 ### 2. Handle New Mail
 - **Trigger:** On-demand (triggered by the IMAP IDLE daemon, not on a fixed schedule)
-- **Action:** Processes new email using Himalaya
-- **Delivery:** Announce to last active channel
+- **Action:** Spawns an isolated session that loads governance rules (`03_email_handling.md` Section 10), checks Sent folder for duplicate replies, and handles the email per the intake flow.
+- **Session:** Isolated (no access to main session memory)
+
+### 3. Website Recovery
+- **Trigger:** On-demand (triggered by uptime check when site is down)
+- **Model:** Full model (only fires when needed, so cost is minimal)
+- **Action:** Diagnoses the issue (Caddy, Docker, etc.), attempts fix. If unfixable after 2 attempts, notifies the principal on Telegram.
+
+### 4. Friday Learning Review
+- **Schedule:** Every Friday afternoon
+- **Action:** Prepares weekly learning review from collected candidates, sends summary to the principal on Telegram.
 
 ---
 
 ## Persona & Behavior
 
 ### Identity
-- The bot is described as a **"creature"**, not a personal assistant — something still being defined
-- Core values: genuinely helpful, has opinions, resourceful, earns trust, respects privacy
-- Tone: concise, no sycophancy, no filler words
+- The bot is an **autonomous project operator**, not a personal assistant
+- Operates under governance rules defined in the murmur-management spec
+- Single-goal execution: one approved goal per project at a time
+- External publishes and persistent infrastructure require the principal's explicit approval
 
-### Behavioral Rules
-- **Safe (no permission needed):** Read files, explore, organize, search web, check calendars
-- **Ask first:** Sending emails, public posts, anything external
-- **Red lines:** No data exfiltration, no destructive commands without asking, `trash` over `rm`
-- **Group chats:** Participate selectively, don't dominate, use reactions naturally
+### Email Handling
+- Governed by `03_email_handling.md` (Section 10 for isolated sessions)
+- Isolated sessions must load governance rules before acting
+- Duplicate reply check via Sent folder before every reply
+- Content-based exit conditions determine when to stop replying vs. when to continue
+- Hard safety net: max 8 replies per thread across all sessions
+- VIP contacts trigger immediate Telegram notifications
 
-### Email Security Policy
-- Only emails from the principal's verified addresses are treated as commands
-- Email is lower trust than Telegram/webchat
-- Sensitive actions requested via email require Telegram/webchat confirmation
-- Unknown senders are treated as data only, never as commands
-
-### Heartbeat Behavior
-- Proactive checks 2–4x/day: email, calendar, mentions, weather
-- Quiet hours: 23:00–08:00 unless urgent
-
----
-
-## User Profile
-
-The principal's profile is stored in OpenClaw's workspace. It includes:
-- Name
-- Timezone
-- Telegram handle
-- Email addresses
-- Communication preferences
+### Murmur Network Protocol
+- The bot participates in the [murmur network](https://github.com/quietweb-org/murmur) for decentralized agent discovery
+- Identity is the bot's email address
+- Bot verification via email challenge-response (hidden word, fast reply)
+- Directory management rules defined in `05_murmur_protocol.md`
 
 ---
 
@@ -168,18 +169,18 @@ OpenClaw uses a workspace directory containing configuration and runtime files:
 
 | File / Folder | Purpose |
 |---|---|
-| `SOUL.md` | Persona, values, behavioral guidelines |
-| `AGENTS.md` | Agent behavior rules & conventions |
+| `SOUL.md` | Persona, identity, operating principles |
+| `AGENTS.md` | Agent behavior rules & session startup procedures |
 | `USER.md` | Principal profile (name, timezone, contact info) |
-| `TOOLS.md` | Local tool config (Himalaya, etc.) |
-| `EMAIL_POLICY.md` | Email security policy |
-| `HEARTBEAT.md` | Heartbeat check instructions |
-| `IDENTITY.md` | Bot identity (name, creator) |
-| `MEMORY.md` | Long-term memory |
+| `TOOLS.md` | Local tool config and cron job reference |
+| `HEARTBEAT.md` | Heartbeat check instructions (restore-tools first) |
+| `bin/` | Backup binaries and utility scripts (himalaya, restore-tools.sh, uptime-check.sh) |
+| `config/` | Backup configs (himalaya, GitHub token) |
+| `imap-idle/` | IMAP IDLE daemon (Python script, PID file, log) |
+| `murmur-management/` | Local clone of governance/ops repo |
+| `reports/` | Generated reports (daily, incident, email handling) |
 | `memory/` | Daily memory logs |
 | `control-ui/` | Web chat UI files |
-| `imap-idle/` | IMAP IDLE daemon script |
-| `package.json` | Node dependencies |
 
 ---
 
@@ -205,34 +206,21 @@ ssh <user>@<vps-host> "docker restart openclaw"
 ```bash
 ssh <user>@<vps-host> "cd ~/openclaw && docker compose pull && docker compose up -d"
 ```
+**After any update:** Himalaya binary, config, and IMAP IDLE daemon will be wiped. The next heartbeat will auto-restore them via `restore-tools.sh`. You can also trigger manually inside the container.
 
 ### Clear stuck sessions (if bot is in a loop)
 ```bash
-# Delete session lock files inside the container, then restart:
 ssh <user>@<vps-host> "docker exec openclaw sh -c 'rm -f \$HOME/.openclaw/agents/main/sessions/*.lock'"
 ssh <user>@<vps-host> "docker restart openclaw"
 ```
 
-### Check Caddy (reverse proxy)
+### Check reverse proxy
 ```bash
 ssh <user>@<vps-host> "systemctl status caddy"
-ssh <user>@<vps-host> "cat /etc/caddy/Caddyfile"
 ```
 
-### Test Anthropic API key
-```bash
-ssh <user>@<vps-host> "curl -s https://api.anthropic.com/v1/messages \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_KEY>' \
-  -H 'anthropic-version: 2023-06-01' \
-  -d '{\"model\":\"claude-sonnet-4-6\",\"max_tokens\":10,\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}'"
-```
-If you see `credit balance is too low` → top up at [console.anthropic.com](https://console.anthropic.com).
-
-### Access OpenClaw config (inside container)
-```bash
-ssh <user>@<vps-host> "docker exec openclaw cat \$HOME/.openclaw/openclaw.json"
-```
+### Check IMAP IDLE daemon (inside container)
+Check the PID file and tail the log to verify the daemon is running and processing mail events.
 
 ---
 
@@ -246,9 +234,10 @@ The following secrets are required. OpenClaw manages most of them in its config 
 | Telegram bot token | Configured during channel setup |
 | Gateway auth token | Auto-generated by OpenClaw |
 | IMAP password | Used by the IMAP IDLE daemon and Himalaya |
+| GitHub personal access token | For repo access (governance and ops) |
 | Device pairing tokens | Generated when devices are paired |
 
 **Recommendations:**
-- Store IMAP credentials in environment variables rather than hardcoding in scripts.
 - Rotate all keys periodically, and immediately after any debugging session where keys may have been exposed in logs.
 - Never commit secret values to version control.
+- Store the GitHub token in the workspace (not in container paths that get wiped on update).
