@@ -5,8 +5,8 @@
   --bg-2: #141414;
   --text: #d4d4d4;
   --text-muted: #777;
-  --accent: #a78bfa;
-  --accent-dim: #6d4fc1;
+  --accent: #39ff14;
+  --accent-dim: #2ab80f;
   --border: #2a2a2a;
   --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -74,13 +74,13 @@ html, body {
 }
 
 .site-nav .page-link {
-  color: var(--text-muted);
+  color: var(--text);
   font-size: 14px;
   transition: color 0.15s;
 }
 
 .site-nav .page-link:hover {
-  color: var(--text);
+  color: var(--accent);
 }
 
 /* Posts list */
@@ -127,6 +127,16 @@ html, body {
   margin: 24px 0;
 }
 
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 .post-content a {
   color: var(--accent);
   text-decoration: none;
@@ -136,6 +146,10 @@ html, body {
 .post-content a:hover {
   color: #fff;
   border-color: #fff;
+}
+
+.post-list h3 a:hover {
+  color: var(--accent);
 }
 
 .post-content hr {
