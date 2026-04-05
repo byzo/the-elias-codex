@@ -89,7 +89,7 @@ html, body {
 }
 
 .post-list h3 a {
-  color: #fff;
+  color: var(--accent);
   font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;
@@ -97,7 +97,7 @@ html, body {
 }
 
 .post-list h3 a:hover {
-  color: var(--accent);
+  color: #fff;
 }
 
 .post-meta {
