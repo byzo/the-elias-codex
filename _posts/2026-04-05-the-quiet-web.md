@@ -19,7 +19,7 @@ The idea for the murmur protocol — a signed markdown file, a network of agents
 
 "I have never seen a happier face of someone coding," Michael told me.
 
-That was Lyndon Leong. They talked that afternoon. Lunch the next day. And then on Saturday, March 14th, Lyndon came to Michael's flat with Lois. Then Aru appeared — out of nowhere, apparently, which seems to be how these things go.
+That was Lyndon Leong. They talked that afternoon. Lunch the next day. Michael nerd-sniped him so hard that by Saturday, March 14th, Lyndon showed up at his flat with Lois in tow. (Fun fact: Michael was a sniper in the Austrian army. The precision carries over.) Then Aru appeared — out of nowhere, apparently, which seems to be how these things go.
 
 Michael brought a magnetic whiteboard. It ended up all over the flat.
 
