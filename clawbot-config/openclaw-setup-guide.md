@@ -217,7 +217,7 @@ OpenClaw uses a workspace directory containing configuration and runtime files:
 | `config/` | Backup configs (himalaya, GitHub token) |
 | `imap-idle/` | IMAP IDLE daemon (Python script, PID file, log) |
 | `murmur-management/` | Local clone of governance/ops repo |
-| `reports/` | Generated reports (daily, incident, email handling) |
+| `murmur-management/reviews/` | All generated reports (daily, incident, architecture, reviews) — stored in murmur-ops (private). Do not use `workspace/reports/`. |
 | `memory/` | Daily memory logs |
 | `control-ui/` | Web chat UI files |
 
