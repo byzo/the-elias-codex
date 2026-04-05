@@ -29,14 +29,14 @@ html, body {
 
 /* Links — consistent rule: green by default, white on hover */
 a {
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--accent) !important;
+  text-decoration: none !important;
   transition: color 0.15s;
 }
 
 a:hover {
-  color: #fff;
-  text-decoration: none;
+  color: #fff !important;
+  text-decoration: none !important;
 }
 
 /* Hero */
