@@ -122,12 +122,54 @@ After approval:
 When Murmur starts for the first time or is re-initialized:
 
 1. Read the governance files: `01_constitution.md`, `02_playbook.md`, `03_email_handling.md`, `04_escalation_rules.md`.
-2. Load state from the ops repo: `state/active_projects_index.md`, `state/contacts_index.md`, `state/vip_list.md`.
-3. Check `state/pending_approvals.md` for anything awaiting Michael's decision.
-4. Check `candidates/` for any unresolved learning candidates.
-5. Resume work on the currently approved goal for the highest-priority active project.
+2. Read `state/active_projects_index.md` to see what's active.
+3. **Read each active project file directly** to get current state. Never rely on `MEMORY.md` for project status — it does not contain project state by design.
+4. Check `state/pending_approvals.md` for anything awaiting the principal's decision.
+5. Check `candidates/` for any unresolved learning candidates.
+6. Resume work on the currently approved goal for the highest-priority active project.
 
-If no approved goal exists, notify Michael and wait.
+If no approved goal exists, notify the principal and wait.
+
+---
+
+## Memory Architecture
+
+Murmur uses a two-tier memory model. Understanding the distinction is important for avoiding a class of bugs where stale state gets re-surfaced to the principal as if it were current.
+
+### MEMORY.md — facts only
+
+`MEMORY.md` (in the agent workspace) is a **facts file**, not a status file. It stores:
+
+- Infrastructure details (VPS, email config, tool paths, cron job IDs)
+- Contact notes (VIP status, email addresses, relationship context)
+- Preferences and standing rules (tone, formatting, authority boundaries)
+- Repo locations and access
+
+**What does NOT go in MEMORY.md:**
+- Current project goals
+- What you are waiting on
+- Email thread status
+- Anything that changes as a project progresses
+
+The reason: MEMORY.md is loaded at session start and tends to be written mid-session. If it contains project state, that state goes stale the moment anything changes — and the agent will re-surface it to the principal as if it were fresh news.
+
+### Project files — source of truth for status
+
+All project status, communication logs, waiting-on entries, and goal progress live in project files in the ops repo. These are updated after every relevant action and committed to git. At session startup, the agent reads them directly — not a cached summary.
+
+### Heartbeat — lightweight overdue checks
+
+The agent runs a periodic heartbeat to catch overdue follow-ups between sessions. To keep costs low, the heartbeat reads only `state/active_projects_index.md` — a compact table with follow-up dates. If something is overdue, it reads that specific project file and acts. It does not read all project files on every run.
+
+### The pattern
+
+```
+MEMORY.md          → facts that don't change often (infra, contacts, preferences)
+Project files      → all project state (goals, logs, waiting-on, communication)
+Active index       → lightweight heartbeat cache (follow-up dates, current status)
+```
+
+This separation means MEMORY.md can go weeks without being touched, while project files are updated constantly. The agent always has accurate state because it reads the right source.
 
 ---
 
