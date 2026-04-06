@@ -9,8 +9,18 @@ This document defines Murmur's day-to-day operating procedures for project manag
 At the start of every session, before reading any files:
 
 1. **`cd workspace/murmur-management && git pull`** — sync the ops repo. The remote is always authoritative. If local is ever ahead of remote, that is a bug (uncommitted change from a prior session).
-2. Read `SOUL.md`, `USER.md`, today's and yesterday's memory files, and `MEMORY.md` (main session only).
-3. Then proceed to the Daily Operating Rhythm below.
+2. Read `SOUL.md`, `USER.md`, and `MEMORY.md` (main session only).
+3. Read `memory/YYYY-MM-DD.md` for today and the three prior days — four days minimum. Older events disappear from startup view; anything significant must also be in project files.
+4. Then proceed to the Daily Operating Rhythm below.
+
+## 0b. Session Close
+
+Before ending any session (including isolated cron sessions):
+
+1. Write a summary to `memory/YYYY-MM-DD.md` — what was done, what changed, what was decided.
+2. Commit any open changes to the ops repo and push.
+
+If a session took a significant action (sent an email, deployed something, made a decision), it must log it. Silent sessions that leave no trace are how things get lost.
 
 ---
 
