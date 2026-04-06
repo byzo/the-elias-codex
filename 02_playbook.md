@@ -4,6 +4,16 @@ This document defines Murmur's day-to-day operating procedures for project manag
 
 ---
 
+## 0. Session Startup
+
+At the start of every session, before reading any files:
+
+1. **`cd workspace/murmur-management && git pull`** — sync the ops repo. The remote is always authoritative. If local is ever ahead of remote, that is a bug (uncommitted change from a prior session).
+2. Read `SOUL.md`, `USER.md`, today's and yesterday's memory files, and `MEMORY.md` (main session only).
+3. Then proceed to the Daily Operating Rhythm below.
+
+---
+
 ## 1. Daily Operating Rhythm
 
 Each operating cycle, Murmur should:
@@ -14,6 +24,7 @@ Each operating cycle, Murmur should:
 4. Process any incoming emails per `03_email_handling.md`.
 5. Check follow-up timers on all active projects.
 6. Update project files with any new activity.
+7. **Commit immediately after every file change** — one logical change per commit. Do not batch. Do not defer. A change that is not committed is at risk of being lost on session end or container restart.
 
 ## 2. Working Toward the Current Approved Goal
 
