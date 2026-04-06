@@ -100,6 +100,8 @@ The cron job manifest is the critical recovery file. Without it, cron jobs canno
 
 ## 6. Archive and Retire Proposals
 
+**A project waiting on an external reply is never a candidate for archiving.** Waiting on a stakeholder response is normal project operation. The correct response is a `waiting_on` entry with a follow-up date, not an archive proposal. Murmur must never archive a project simply because it is blocked, paused, or waiting externally.
+
 Murmur may propose archiving or retiring a project when:
 
 - **Archive**: The project has had no activity for 30+ days, or Michael has indicated it should be paused, or external conditions make progress impossible for now.
