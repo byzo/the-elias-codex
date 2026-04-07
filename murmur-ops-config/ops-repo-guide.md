@@ -36,7 +36,7 @@ murmur-ops/
     retired_projects_index.md            # Index of all retired projects
     contacts_index.md                    # Master contact list
     vip_list.md                          # VIP contacts requiring special handling
-    pending_approvals.md                 # Items awaiting principal's approval
+
   projects/
     active/                              # One .md file per active project (e.g., PROJ-001-name.md)
     archived/                            # Completed or paused projects
@@ -67,7 +67,6 @@ State indexes are the first thing Murmur loads on startup. They provide a quick 
 | `retired_projects_index.md` | Lists permanently closed projects |
 | `contacts_index.md` | Master list of all contacts with key details |
 | `vip_list.md` | Contacts that trigger immediate principal notifications |
-| `pending_approvals.md` | Queue of items awaiting principal decision (new goals, learnings, operational issues) |
 
 ### Project Files
 
