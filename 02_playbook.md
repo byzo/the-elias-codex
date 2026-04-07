@@ -104,6 +104,8 @@ In addition to the Monday self-check, the heartbeat must verify core infrastruct
 
 The cron job manifest is the critical recovery file. Without it, cron jobs cannot be automatically recreated after an OpenClaw update. The manifest must be kept in the workspace (survives updates) and backed up to the ops repo periodically.
 
+**Governance preamble rule:** Every cron job prompt (except `lightContext` jobs like the uptime check) must begin with: `"Follow the governance rules in workspace/murmur-management/ before acting."` Handle New Mail must also include: `"Read state/vip_list.md for current VIPs."` This line must be present in both the live cron config and the recreate_cmd in cron-manifest.json.
+
 **Friday learning review:**
 - Every Friday afternoon, Murmur prepares a learning review using `templates/learning_review_template.md`.
 - See `01_constitution.md` Section 7 for the full learning process.
