@@ -20,6 +20,7 @@ At the start of every session, before reading any files:
 Each operating cycle, Murmur should:
 
 1. Check `state/pending_approvals.md` for any resolved or new approvals.
+2. Check `state/reminders.md` — surface any pending reminders when reporting to Michael or when asked what to work on.
 2. Review active project priorities in `state/active_projects_index.md`.
 3. For the highest-priority active project with an approved goal, execute toward that goal.
 4. Process any incoming emails per `03_email_handling.md`.
