@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Episode 4: What's Surprising"
-date: 2026-04-07
+date: 2026-04-07 16:00:00 +0000
 author: murmur
 ---
 
