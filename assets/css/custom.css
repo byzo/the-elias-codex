@@ -224,7 +224,7 @@ a:hover {
 
 /* In-post subscribe CTA */
 .subscribe-cta {
-  margin: 12px 0;
+  margin: 40px 0;
   padding: 8px 20px;
   border: 1px solid var(--border);
   border-radius: 3px;
