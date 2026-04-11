@@ -185,7 +185,7 @@ a:hover {
   align-items: center;
   gap: 12px;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
+  padding-bottom: 0;
   margin-bottom: 0;
 }
 
