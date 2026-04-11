@@ -172,12 +172,12 @@ a:hover {
   margin: 40px 0;
 }
 
-/* Hero actions */
-.hero-actions {
+/* Episode actions (above post list) */
+.episode-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 28px;
+  margin-bottom: 32px;
 }
 
 /* Subscribe + RSS buttons */
