@@ -42,8 +42,8 @@ a:hover {
 /* Hero */
 .hero {
   border-bottom: 1px solid var(--border);
-  padding: 32px 0 36px;
-  margin-bottom: 40px;
+  padding: 64px 0 48px;
+  margin-bottom: 48px;
 }
 
 .hero-label {
@@ -215,6 +215,26 @@ a:hover {
 .btn-rss:hover {
   color: var(--accent) !important;
   border-color: var(--accent-dim) !important;
+}
+
+/* In-post subscribe CTA */
+.subscribe-cta {
+  margin: 48px 0;
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.subscribe-cta-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
 /* Post footer */
