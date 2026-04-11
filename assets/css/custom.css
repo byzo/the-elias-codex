@@ -41,8 +41,7 @@ a:hover {
 
 /* Hero */
 .hero {
-  border-bottom: 1px solid var(--border);
-  padding: 64px 0 0;
+  padding: 64px 0 80px;
   margin-bottom: 0;
 }
 
@@ -173,11 +172,17 @@ a:hover {
 }
 
 /* Episode actions (above post list) */
+.page-content {
+  padding-top: 0 !important;
+}
+
 .episode-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 0 32px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-bottom: 40px;
 }
 
 /* Subscribe + RSS buttons */
