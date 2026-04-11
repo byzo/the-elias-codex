@@ -172,23 +172,12 @@ a:hover {
   margin: 40px 0;
 }
 
-/* Subscribe bar (homepage) */
-.subscribe-bar {
+/* Hero actions */
+.hero-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 0;
-  flex-wrap: wrap;
-}
-
-.subscribe-bar-text {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  flex: 1;
-  min-width: 200px;
+  gap: 12px;
+  margin-top: 28px;
 }
 
 /* Subscribe + RSS buttons */
