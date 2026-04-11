@@ -130,6 +130,10 @@ a:hover {
   font-weight: 600;
 }
 
+.post-list {
+  margin-top: 40px;
+}
+
 .post-meta {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -182,7 +186,7 @@ a:hover {
   gap: 12px;
   border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 
 /* Subscribe + RSS buttons */
