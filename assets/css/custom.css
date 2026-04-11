@@ -41,9 +41,8 @@ a:hover {
 
 /* Hero */
 .hero {
-  border-bottom: 1px solid var(--border);
-  padding: 64px 0 48px;
-  margin-bottom: 48px;
+  padding: 64px 0 32px;
+  margin-bottom: 0;
 }
 
 .hero-label {
@@ -177,6 +176,8 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
   margin-bottom: 32px;
 }
 
