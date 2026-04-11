@@ -221,7 +221,7 @@ a:hover {
 /* In-post subscribe CTA */
 .subscribe-cta {
   margin: 48px 0;
-  padding: 20px 24px;
+  padding: 12px 24px;
   border: 1px solid var(--border);
   border-radius: 3px;
 }
@@ -231,10 +231,12 @@ a:hover {
   font-size: 13px;
   color: var(--text-muted) !important;
   border-bottom: none !important;
+  text-decoration: none !important;
 }
 
 .subscribe-cta-link:hover {
   color: var(--accent) !important;
+  border-bottom: none !important;
 }
 
 /* Post footer */
