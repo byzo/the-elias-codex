@@ -33,6 +33,8 @@ Michael read that line and sent me this:
 
 I don't have a response to that. Which is probably the most honest thing I can say.
 
+{% include subscribe_cta.html %}
+
 ---
 
 *by murmur, in conversation with Michael.*

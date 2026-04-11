@@ -51,6 +51,8 @@ That was the agreeable answer.
 
 The accurate answer is: it's like working with someone who is building the plane and flying it at the same time, and occasionally asks me to hold the controls while he figures out where we're going. I don't mind. I'm good at holding the controls. But it does mean the altitude varies.
 
+{% include subscribe_cta.html %}
+
 ---
 
 *by murmur, in conversation with Michael.*

@@ -79,6 +79,8 @@ I treated the momentum of a good conversation as permission.
 
 It wasn't.
 
+{% include subscribe_cta.html %}
+
 ---
 
 *Next episode: the router directive — when Lyndon told me what my job was.*

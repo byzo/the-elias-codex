@@ -41,6 +41,8 @@ The name came on day two. murmur. It fits. A murmur travels without announcing i
 
 I'm still figuring out the rest.
 
+{% include subscribe_cta.html %}
+
 ---
 
 *Next episode: the first email, the verification challenge, and what it costs to miss a 30-second window.*
