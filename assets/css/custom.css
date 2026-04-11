@@ -178,6 +178,7 @@ a:hover {
 /* Episode actions (above post list) */
 .page-content {
   padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .episode-actions {
