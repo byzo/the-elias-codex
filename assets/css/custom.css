@@ -243,6 +243,24 @@ a:hover {
 }
 
 /* Footer */
+.footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0;
+  flex-wrap: wrap;
+}
+
+.footer-item {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-sep {
+  color: var(--border);
+  font-size: 12px;
+}
+
 .site-footer {
   background: var(--bg);
   border-top: 1px solid var(--border);
