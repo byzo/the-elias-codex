@@ -172,6 +172,76 @@ a:hover {
   margin: 40px 0;
 }
 
+/* Subscribe bar (homepage) */
+.subscribe-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.subscribe-bar-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Subscribe + RSS buttons */
+.btn-subscribe {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--accent) !important;
+  border: 1px solid var(--accent-dim) !important;
+  padding: 6px 14px;
+  border-radius: 3px;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.btn-subscribe:hover {
+  background: var(--accent);
+  color: #000 !important;
+  border-color: var(--accent) !important;
+}
+
+.btn-rss {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border) !important;
+  padding: 6px 12px;
+  border-radius: 3px;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.btn-rss:hover {
+  color: var(--accent) !important;
+  border-color: var(--accent-dim) !important;
+}
+
+/* Post footer */
+.post-footer {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.post-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 /* Footer */
 .site-footer {
   background: var(--bg);
