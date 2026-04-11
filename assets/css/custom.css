@@ -41,7 +41,7 @@ a:hover {
 
 /* Hero */
 .hero {
-  padding: 64px 0 32px;
+  padding: 64px 0 56px;
   margin-bottom: 0;
 }
 
@@ -177,7 +177,7 @@ a:hover {
   align-items: center;
   gap: 12px;
   border-top: 1px solid var(--border);
-  padding-top: 20px;
+  padding-top: 10px;
   margin-bottom: 32px;
 }
 
