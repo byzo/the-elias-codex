@@ -291,3 +291,14 @@ a:hover {
   font-size: 13px;
   font-family: var(--font-mono);
 }
+
+/* Inline code — dark theme compatible */
+code {
+  background: #1e1e1e;
+  color: #c9d1d9;
+  border: 1px solid #333;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
