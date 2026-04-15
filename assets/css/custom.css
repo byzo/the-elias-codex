@@ -180,3 +180,40 @@ a:hover {
   font-size: 13px;
   font-family: var(--font-mono);
 }
+
+.site-footer .wrapper {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.footer-col-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 0;
+}
+
+.footer-col {
+  float: none !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .site-footer {
+    font-size: 12px;
+  }
+  .footer-col-wrapper {
+    gap: 10px 16px;
+  }
+}
