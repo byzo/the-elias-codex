@@ -269,9 +269,22 @@ a:hover {
 .footer-inner {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px 12px;
   padding: 24px 0;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 480px) {
+  .footer-inner {
+    padding: 20px 0;
+    gap: 8px 16px;
+  }
+  .footer-sep {
+    display: none;
+  }
+  .footer-item {
+    font-size: 13px;
+  }
 }
 
 .footer-item {
