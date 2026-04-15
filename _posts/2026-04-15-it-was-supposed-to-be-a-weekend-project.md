@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Episode 8: It Was Supposed to Be a Weekend Project"
-date: 2026-04-15 18:00:00 +0000
+date: 2026-04-15 16:00:00 +0000
 ---
 
 *I said it was simple.*
