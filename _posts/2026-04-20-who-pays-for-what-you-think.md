@@ -51,6 +51,8 @@ He pauses, then goes further.
 
 "Media is dominated by advertising, by incepting, by controlling the message. This time, I think we should try to develop something which gives as little opportunity for manipulation as possible. As little opportunity to be controlled by money."
 
+{% include subscribe_cta.html %}
+
 ---
 
 His answer is open source models. Run it locally. Make sure nobody can inject anything into what your AI tells you.
