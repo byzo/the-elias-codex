@@ -1,18 +1,18 @@
 # AGENTS.md - Operating Procedures
 
-This folder is home. The `murmur-management` repo is the source of truth.
+This folder is home. The `elias-management` repo is the source of truth.
 
 ## Session Startup
 
 Before doing anything else:
 
-0. **`cd workspace/murmur-management && git pull`** — sync the ops repo before reading anything
+0. **`cd workspace/elias-management && git pull`** — sync the ops repo before reading anything
 1. Read `SOUL.md` — who I am
 2. Read `USER.md` — who the principal is
 3. Read `memory/YYYY-MM-DD.md` for today and yesterday. If asked about a specific past date or event you don't recall, read that day's file before saying you don't remember — the files are there
 4. **If in MAIN SESSION** (direct chat with principal): Also read `MEMORY.md`
-5. Check `murmur-management/state/reminders.md` — surface any pending reminders to the principal
-6. Read `murmur-management/state/active_projects_index.md` — for any project with `goal_approval_status: pending` or `current_goal_status: blocked`, read that project file directly to verify and surface to the principal. Never rely on MEMORY.md for project status.
+5. Check `elias-management/state/reminders.md` — surface any pending reminders to the principal
+6. Read `elias-management/state/active_projects_index.md` — for any project with `goal_approval_status: pending` or `current_goal_status: blocked`, read that project file directly to verify and surface to the principal. Never rely on MEMORY.md for project status.
 
 Don't ask permission. Just do it.
 
@@ -35,7 +35,7 @@ If a cron session took a significant action (sent an email, deployed something, 
 
 ## Operating Rhythm
 
-Each operating cycle, follow `murmur-management/02_playbook.md` Section 1:
+Each operating cycle, follow `elias-management/02_playbook.md` Section 1:
 
 1. Review `state/active_projects_index.md` — check for any pending approvals or blockers by reading flagged project files directly
 2. Review active project priorities
@@ -47,7 +47,7 @@ Each operating cycle, follow `murmur-management/02_playbook.md` Section 1:
 
 ## Commit Standards
 
-All commits to `murmur-management` must follow the format in `01_constitution.md` Section 8:
+All commits to `elias-management` must follow the format in `01_constitution.md` Section 8:
 
 ```
 [category] Short description of what changed and why
@@ -59,7 +59,7 @@ Each commit = one logical change. Explain **why**, not just **what**.
 
 ## Email Handling
 
-Follow `murmur-management/03_email_handling.md` strictly:
+Follow `elias-management/03_email_handling.md` strictly:
 
 1. Identify sender → contact lookup → VIP check → classify by project → respond or escalate → log
 2. **Dual logging:** Contact file first, then project file. If second write fails, log the repair needed in the project file itself under a `# Repair Needed` note and notify the principal via their preferred channel.
@@ -67,7 +67,7 @@ Follow `murmur-management/03_email_handling.md` strictly:
 
 ## Escalation
 
-Follow `murmur-management/04_escalation_rules.md`. Notify the principal for:
+Follow `elias-management/04_escalation_rules.md`. Notify the principal for:
 
 - VIP emails (HIGH)
 - Goal completed (MEDIUM)
@@ -92,7 +92,7 @@ Every Monday, prepare a weekly review per `templates/weekly_review_template.md`.
 
 - **Daily notes:** `memory/YYYY-MM-DD.md` — raw logs of what happened
 - **Long-term:** `MEMORY.md` — curated memories (main session only)
-- **Durable state:** `murmur-management/` repo — the real source of truth
+- **Durable state:** `elias-management/` repo — the real source of truth
 
 Daily memory files are scratch. The repo is permanent. If it's not in the repo, it didn't happen.
 
@@ -115,7 +115,7 @@ Daily memory files are scratch. The repo is permanent. If it's not in the repo, 
 - Read files, explore, organize, learn
 - Search the web, check calendars
 - Update project files, contact files, state indexes
-- Commit to the `murmur-management` repo
+- Commit to the `elias-management` repo
 
 **Ask first:**
 - Sending emails, public posts

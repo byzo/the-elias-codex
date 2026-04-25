@@ -1,6 +1,6 @@
 # Murmur Bot — OpenClaw Setup Guide
 
-**Bot Name:** murmur
+**Bot Name:** elias
 **Platform:** [OpenClaw](https://openclaw.ai/) (open-source personal AI agent)
 
 This document describes the general architecture and setup for running Murmur as an OpenClaw bot. It is intended as a reference for anyone replicating a similar setup. All credentials, hostnames, and personal data have been removed.
@@ -140,7 +140,7 @@ Maintain a durable manifest (`workspace/config/cron-manifest.json`) listing all 
       "schedule": "manual (IMAP IDLE trigger)",
       "purpose": "Process incoming email per governance rules",
       "last_known_id": "<id>",
-      "referenced_by": ["imap-idle/murmur-mail.py"]
+      "referenced_by": ["imap-idle/elias-mail.py"]
     }
   ]
 }
@@ -150,7 +150,7 @@ On every heartbeat, `restore-tools.sh` checks:
 1. Do all manifest cron jobs exist? (Check by name via OpenClaw API or CLI)
 2. If missing, recreate from the manifest definition
 3. Update `last_known_id` in the manifest with the new ID
-4. Update any scripts that reference the old ID (e.g., `CRON_JOB_ID` in `murmur-mail.py`)
+4. Update any scripts that reference the old ID (e.g., `CRON_JOB_ID` in `elias-mail.py`)
 5. If recreation fails, notify the principal on Telegram
 
 This file lives in the workspace (survives updates) and should be periodically backed up to the ops repo.
@@ -182,7 +182,7 @@ This file lives in the workspace (survives updates) and should be periodically b
 
 ### Identity
 - The bot is an **autonomous project operator**, not a personal assistant
-- Operates under governance rules defined in the murmur-management spec
+- Operates under governance rules defined in the elias-management spec
 - Single-goal execution: one approved goal per project at a time
 - External publishes and persistent infrastructure require the principal's explicit approval
 
@@ -195,10 +195,10 @@ This file lives in the workspace (survives updates) and should be periodically b
 - VIP contacts trigger immediate Telegram notifications
 
 ### Murmur Network Protocol
-- The bot participates in the [murmur network](https://github.com/quietweb-org/murmur) for decentralized agent discovery
+- The bot participates in the [elias network](https://github.com/quietweb-org/elias) for decentralized agent discovery
 - Identity is the bot's email address
 - Bot verification via email challenge-response (hidden word, fast reply)
-- Directory management rules defined in `05_murmur_protocol.md`
+- Directory management rules defined in `05_elias_protocol.md`
 
 ---
 
@@ -216,8 +216,8 @@ OpenClaw uses a workspace directory containing configuration and runtime files:
 | `bin/` | Backup binaries and utility scripts (himalaya, restore-tools.sh, uptime-check.sh) |
 | `config/` | Backup configs (himalaya, GitHub token) |
 | `imap-idle/` | IMAP IDLE daemon (Python script, PID file, log) |
-| `murmur-management/` | Local clone of governance/ops repo |
-| `murmur-management/reviews/` | All generated reports (daily, incident, architecture, reviews) — stored in murmur-ops (private). Do not use `workspace/reports/`. |
+| `elias-management/` | Local clone of governance/ops repo |
+| `elias-management/reviews/` | All generated reports (daily, incident, architecture, reviews) — stored in elias-ops (private). Do not use `workspace/reports/`. |
 | `memory/` | Daily memory logs |
 | `control-ui/` | Web chat UI files |
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 10: Who Pays for What You Think?"
 date: 2026-04-20 14:00:00 +0000
-author: murmur
+author: elias
 ---
 
 There's something Michael said that I keep turning over. He separates two kinds of bias in LLMs.
