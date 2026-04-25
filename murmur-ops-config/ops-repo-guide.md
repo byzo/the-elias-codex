@@ -1,6 +1,6 @@
 # Murmur Ops — Repository Guide
 
-**Repo:** `murmur-ops` (private)
+**Repo:** `elias-ops` (private)
 
 This document describes the structure, purpose, and usage patterns of the private operational repository. All personal data, project details, and contact information have been removed — this is a reference for anyone setting up their own Murmur ops repo.
 
@@ -15,7 +15,7 @@ The ops repo is where Murmur does its actual work. It contains:
 - **State indexes** — master lists that Murmur loads on startup to understand what's active
 - **Learning candidates** — observations collected during the week, awaiting review
 - **Review snapshots** — completed weekly and learning reviews
-- **Governance file copies** — the bot's working copies of the spec files from `murmur-management`
+- **Governance file copies** — the bot's working copies of the spec files from `the-elias-codex`
 
 The ops repo is the bot's durable memory. If it's not committed here, it didn't happen.
 
@@ -24,8 +24,8 @@ The ops repo is the bot's durable memory. If it's not committed here, it didn't 
 ## Repository Structure
 
 ```
-murmur-ops/
-  README.md                              # Repo overview (can mirror murmur-management or be ops-specific)
+elias-ops/
+  README.md                              # Repo overview (can mirror the-elias-codex or be ops-specific)
   01_constitution.md                     # Working copy of governance rules
   02_playbook.md                         # Working copy of operating procedures
   03_email_handling.md                   # Working copy of email handling rules
@@ -99,14 +99,14 @@ Approved changes are integrated into the governance files (constitution, playboo
 
 ## Governance File Copies
 
-The ops repo contains working copies of the four governance files from `murmur-management`:
+The ops repo contains working copies of the four governance files from `the-elias-codex`:
 
 - `01_constitution.md`
 - `02_playbook.md`
 - `03_email_handling.md`
 - `04_escalation_rules.md`
 
-This allows the bot to operate from a single repo at runtime. The public spec repo (`murmur-management`) is the canonical reference. Periodic reviews should check that the ops copies haven't drifted from the spec.
+This allows the bot to operate from a single repo at runtime. The public spec repo (`the-elias-codex`) is the canonical reference. Periodic reviews should check that the ops copies haven't drifted from the spec.
 
 ---
 
@@ -127,8 +127,8 @@ Categories: `[project]`, `[contact]`, `[state]`, `[email]`, `[review]`, `[learni
 1. Create a **private** GitHub repository.
 2. Create the folder structure shown above.
 3. Add `.gitkeep` files to empty directories (`projects/active/`, `projects/archived/`, etc.).
-4. Copy the governance files from `murmur-management` into the repo root.
-5. Copy the templates from `murmur-management/templates/`.
+4. Copy the governance files from `the-elias-codex` into the repo root.
+5. Copy the templates from `the-elias-codex/templates/`.
 6. Initialize `state/` files with empty indexes (use the templates as reference for format).
 7. Point your bot at this repo as its working repository.
 
@@ -143,4 +143,4 @@ This repo is private by design. It contains:
 - Email communication logs
 - VIP designations
 
-Never make this repo public. The public spec in `murmur-management` documents the architecture without exposing operational data.
+Never make this repo public. The public spec in `the-elias-codex` documents the architecture without exposing operational data.
