@@ -14,7 +14,7 @@ The Elias Codex uses a **three-repository pattern** to separate public governanc
 
 | Repo | Visibility | Purpose |
 |---|---|---|
-| `murmur-management` (this repo) | **Public** | Governance spec, operating procedures, templates, runtime setup documentation |
+| `the-elias-codex` (this repo) | **Public** | Governance spec, operating procedures, templates, runtime setup documentation |
 | `murmur-ops` | **Private** | Live operational data: projects, contacts, state indexes, reviews, learning candidates, governance file copies |
 | `clawbot-config` | **Private** | Runtime infrastructure: OpenClaw setup, scripts, cron manifests, known issues, deployment runbook |
 
@@ -41,10 +41,10 @@ The Elias Codex exists to:
 
 ## Architecture
 
-### This repo (`murmur-management`) — public spec
+### This repo (`the-elias-codex`) — public spec
 
 ```
-murmur-management/
+the-elias-codex/
   README.md                          # This file — system overview
   01_constitution.md                 # Governance rules (immutable without approval)
   02_playbook.md                     # Day-to-day operating procedures
@@ -197,7 +197,7 @@ This governance spec was not written in isolation — it was built iteratively u
 
 Once [OpenClaw](https://openclaw.ai/) was installed and the bot was running, we used two separate AI agents in parallel:
 
-- **A coding agent** (Claude Code in the terminal) — used to draft governance rules, edit spec files, manage Git, create PRs, and push changes to the public `murmur-management` repo.
+- **A coding agent** (Claude Code in the terminal) — used to draft governance rules, edit spec files, manage Git, create PRs, and push changes to the public `the-elias-codex` repo.
 - **The bot itself** (murmur, running on OpenClaw) — the live operator that reads the spec, handles email, manages projects, and commits operational data to the private `murmur-ops` repo.
 
 The principal sits between them, routing decisions and challenging both sides.
@@ -207,7 +207,7 @@ The principal sits between them, routing decisions and challenging both sides.
 The typical cycle looks like this:
 
 1. **Identify a gap or incident.** Something breaks, or a review reveals a missing rule. This can come from the bot's own reports, the principal's observation, or the coding agent's analysis.
-2. **Draft the fix in the coding agent.** The coding agent edits the spec files, creates a PR, and merges it to `murmur-management`.
+2. **Draft the fix in the coding agent.** The coding agent edits the spec files, creates a PR, and merges it to `the-elias-codex`.
 3. **Prompt the bot to integrate.** The principal sends the bot a message (via Telegram or web chat) telling it to pull the latest spec, sync governance files to the ops repo, and update its runtime behavior (e.g., rewrite a cron job message).
 4. **Verify.** The principal or the coding agent checks the ops repo to confirm the changes landed correctly.
 5. **Test.** Trigger the scenario that caused the original issue and verify the fix works.
