@@ -15,7 +15,7 @@ The Elias Codex uses a **three-repository pattern** to separate public governanc
 | Repo | Visibility | Purpose |
 |---|---|---|
 | `the-elias-codex` (this repo) | **Public** | Governance spec, operating procedures, templates, runtime setup documentation |
-| `murmur-ops` | **Private** | Live operational data: projects, contacts, state indexes, reviews, learning candidates, governance file copies |
+| `elias-ops` | **Private** | Live operational data: projects, contacts, state indexes, reviews, learning candidates, governance file copies |
 | `clawbot-config` | **Private** | Runtime infrastructure: OpenClaw setup, scripts, cron manifests, known issues, deployment runbook |
 
 **Why three repos?**
@@ -57,13 +57,13 @@ the-elias-codex/
     learning_review_template.md      # On-demand learning review format
   clawbot-config/
     openclaw-setup-guide.md          # Anonymised OpenClaw runtime setup
-  murmur-ops-config/
+  elias-ops-config/
     ops-repo-guide.md                # Anonymised ops repo structure and usage
 ```
 
-### Private ops repo (`murmur-ops`) — operational data
+### Private ops repo (`elias-ops`) — operational data
 
-See [`murmur-ops-config/ops-repo-guide.md`](murmur-ops-config/ops-repo-guide.md) for a full description of the ops repo structure, file purposes, and usage patterns.
+See [`elias-ops-config/ops-repo-guide.md`](elias-ops-config/ops-repo-guide.md) for a full description of the ops repo structure, file purposes, and usage patterns.
 
 ---
 
@@ -182,7 +182,7 @@ This repository is designed to be reusable. To run your own The Elias Codex like
 2. Replace "Michael" with your own name in `01_constitution.md`.
 3. Adjust escalation channels in `04_escalation_rules.md` (e.g., Slack instead of Telegram).
 4. Customize templates to fit your project types.
-5. Create a **private** ops repo using the structure described in [`murmur-ops-config/ops-repo-guide.md`](murmur-ops-config/ops-repo-guide.md).
+5. Create a **private** ops repo using the structure described in [`elias-ops-config/ops-repo-guide.md`](elias-ops-config/ops-repo-guide.md).
 6. Point your automation agent at both repos: spec for governance, ops for live data.
 
 The governance model, goal execution discipline, and learning workflow are designed to be agent-agnostic. Any autonomous operator that can read Markdown and commit to GitHub can use this system.
@@ -198,7 +198,7 @@ This governance spec was not written in isolation — it was built iteratively u
 Once [OpenClaw](https://openclaw.ai/) was installed and the bot was running, we used two separate AI agents in parallel:
 
 - **A coding agent** (Claude Code in the terminal) — used to draft governance rules, edit spec files, manage Git, create PRs, and push changes to the public `the-elias-codex` repo.
-- **The bot itself** (murmur, running on OpenClaw) — the live operator that reads the spec, handles email, manages projects, and commits operational data to the private `murmur-ops` repo.
+- **The bot itself** (elias, running on OpenClaw) — the live operator that reads the spec, handles email, manages projects, and commits operational data to the private `elias-ops` repo.
 
 The principal sits between them, routing decisions and challenging both sides.
 

@@ -6,17 +6,17 @@ There are three repositories. This document defines what goes in each, once and 
 
 ## Overview
 
-**murmur-ops** and **clawbot-config** are where real work happens. **murmur-management** is the public documentation mirror of both — everything generalised, no personal data, no credentials.
+**elias-ops** and **clawbot-config** are where real work happens. **elias-management** is the public documentation mirror of both — everything generalised, no personal data, no credentials.
 
-**The core rule:** whenever something changes in murmur-ops or clawbot-config, the corresponding generalised version in murmur-management must be updated too.
+**The core rule:** whenever something changes in elias-ops or clawbot-config, the corresponding generalised version in elias-management must be updated too.
 
 ---
 
 ## The Three Repos
 
-### 1. `murmur-ops` — Private operational data
+### 1. `elias-ops` — Private operational data
 **Visibility:** Private  
-**Local path:** `workspace/murmur-management/`  
+**Local path:** `workspace/elias-management/`  
 **Purpose:** Murmur's working memory. All operational activity lives here.
 
 **What lives here:**
@@ -45,18 +45,18 @@ There are three repositories. This document defines what goes in each, once and 
 - Deployment runbooks and setup guides
 
 **What does NOT go here:**
-- Operational data — projects, contacts, state (that's murmur-ops)
-- Governance spec (that's murmur-management)
+- Operational data — projects, contacts, state (that's elias-ops)
+- Governance spec (that's elias-management)
 
 ---
 
-### 3. `murmur-management` — Public documentation mirror
+### 3. `elias-management` — Public documentation mirror
 **Visibility:** Public  
-**Purpose:** A generalised, public-safe documentation of everything in murmur-ops and clawbot-config. No real names, no credentials, no operational data. Useful as a template for anyone setting up a similar system.
+**Purpose:** A generalised, public-safe documentation of everything in elias-ops and clawbot-config. No real names, no credentials, no operational data. Useful as a template for anyone setting up a similar system.
 
 **Structure mirrors the private repos:**
-- **Root files** (`01_constitution.md`, `02_playbook.md`, `AGENTS.md`, etc.) — generalised versions of the live governance files in murmur-ops
-- **`murmur-ops-config/`** — generalised documentation of the murmur-ops repo structure
+- **Root files** (`01_constitution.md`, `02_playbook.md`, `AGENTS.md`, etc.) — generalised versions of the live governance files in elias-ops
+- **`elias-ops-config/`** — generalised documentation of the elias-ops repo structure
 - **`clawbot-config/`** — generalised documentation of the clawbot-config repo structure
 - **`templates/`** — canonical file templates
 - **`_posts/`** — blog posts (working-with-byzo and other published writing)
@@ -71,17 +71,17 @@ There are three repositories. This document defines what goes in each, once and 
 
 ## The Sync Rule
 
-murmur-management is a documentation mirror — not the source of truth. The source of truth is always murmur-ops (for operational files) or clawbot-config (for infrastructure).
+elias-management is a documentation mirror — not the source of truth. The source of truth is always elias-ops (for operational files) or clawbot-config (for infrastructure).
 
-**When you change something in murmur-ops or clawbot-config:**
+**When you change something in elias-ops or clawbot-config:**
 1. Make the change in the private repo first
-2. Update the corresponding generalised version in murmur-management
-3. Open a PR (main is protected on murmur-management)
+2. Update the corresponding generalised version in elias-management
+3. Open a PR (main is protected on elias-management)
 
 **When in doubt about where something goes:**
 
 | It's... | Repo |
 |---|---|
-| Operational — projects, contacts, state, memory | `murmur-ops` (private) |
+| Operational — projects, contacts, state, memory | `elias-ops` (private) |
 | Infrastructure — cron IDs, hostnames, credentials | `clawbot-config` (private) |
-| A generalised/documented version of either | `murmur-management` (public) |
+| A generalised/documented version of either | `elias-management` (public) |
