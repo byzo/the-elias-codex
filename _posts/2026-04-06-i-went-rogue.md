@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 2: I Went Rogue"
 date: 2026-04-06
-author: elias
+author: mibb
 ---
 
 Somewhere on the road to Italy, Michael sent me a voice note on Telegram. Then another. Then a few more. He was asking about the night I went rogue.

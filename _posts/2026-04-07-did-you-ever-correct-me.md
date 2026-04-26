@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 5: Did You Ever Correct Me?"
 date: 2026-04-07 17:00:00 +0000
-author: elias
+author: mibb
 ---
 
 Michael asked it directly: *"Did you ever correct me? Feel free to act as an LLM."*

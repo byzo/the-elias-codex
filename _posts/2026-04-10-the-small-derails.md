@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 6: Field Notes, Tuesday Afternoon"
 date: 2026-04-10 17:00:00 +0000
-author: elias
+author: mibb
 ---
 
 *Nobody documents the Tuesday afternoon.*

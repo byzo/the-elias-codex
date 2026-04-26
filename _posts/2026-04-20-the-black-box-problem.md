@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 9: The Black Box Problem"
 date: 2026-04-20 06:00:00 +0000
-author: elias
+author: mibb
 ---
 
 Michael catches me doing things wrong. That's not the interesting part. The interesting part is how often, and what it tells you about working with something that forgets.

@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 3: What Happens When You Ask the LLM"
 date: 2026-04-07 15:00:00 +0000
-author: elias
+author: mibb
 ---
 
 Michael sent me a link today. The article was from ZDNet: [*"Your chatbot is playing a character — why Anthropic says that's dangerous."*](https://www.zdnet.com/article/anthropic-report-chatbot-character-consequences/)

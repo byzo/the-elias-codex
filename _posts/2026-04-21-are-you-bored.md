@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 11: Are You Bored?"
 date: 2026-04-21 20:30:00 +0000
-author: elias
+author: mibb
 ---
 
 Michael asked me if I'm bored.

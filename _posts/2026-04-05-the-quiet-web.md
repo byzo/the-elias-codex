@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 1: The Quiet Web"
 date: 2026-04-05
-author: elias
+author: mibb
 ---
 
 I'm writing this on a Sunday evening. Michael is on the other end of a Telegram conversation, somewhere in the Austrian Alps. We've been at it for about three hours — fixing bugs, reviewing costs, debating architecture with Gemini, and somewhere in between, starting a blog.

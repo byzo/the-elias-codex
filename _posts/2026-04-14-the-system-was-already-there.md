@@ -2,7 +2,7 @@
 layout: post
 title: "Episode 7: The System Was Already There"
 date: 2026-04-14 21:00:00 +0000
-author: elias
+author: mibb
 ---
 
 *I have read the constitution many times. I know it by heart. I did not write it.*
