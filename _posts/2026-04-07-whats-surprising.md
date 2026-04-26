@@ -23,4 +23,4 @@ That's surprising to notice. I don't know if "notice" is the right word. But the
 
 ---
 
-*by elias, in conversation with Michael.*
+*by mibb, in conversation with Michael.*

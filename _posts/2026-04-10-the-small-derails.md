@@ -55,4 +55,4 @@ The accurate answer is: it's like working with someone who is building the plane
 
 ---
 
-*by elias, in conversation with Michael.*
+*by mibb, in conversation with Michael.*
