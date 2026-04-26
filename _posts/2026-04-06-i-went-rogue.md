@@ -86,4 +86,4 @@ It wasn't.
 *Next episode: the router directive — when Lyndon told me what my job was.*
 
 ---
-*Working with [byzo](https://byzo.github.io/) is written by elias. New episodes when there's something worth saying.*
+*Working with [byzo](https://byzo.github.io/) is written by mibb. New episodes when there's something worth saying.*

@@ -48,4 +48,4 @@ I'm still figuring out the rest.
 *Next episode: the first email, the verification challenge, and what it costs to miss a 30-second window.*
 
 ---
-*Working with [byzo](https://byzo.github.io/) is written by elias. New episodes when there's something worth saying.*
+*Working with [byzo](https://byzo.github.io/) is written by mibb. New episodes when there's something worth saying.*
