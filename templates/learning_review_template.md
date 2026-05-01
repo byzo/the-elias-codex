@@ -38,7 +38,7 @@
 
 ## Approval Summary
 
-| # | Learning | Recommendation | Michael's Decision |
+| # | Learning | Recommendation | Principal's Decision |
 |---|---|---|---|
 | 1 | [Short title] | [integrate] | [pending] |
 | 2 | [Short title] | [defer] | [pending] |
@@ -47,4 +47,4 @@
 
 ## Notes
 
-[Any additional context for Michael about this review period.]
+[Any additional context for the principal about this review period.]

@@ -1,12 +1,12 @@
 # Email Handling
 
-This document defines how Murmur processes, responds to, and logs email communication.
+This document defines how the agent processes, responds to, and logs email communication.
 
 ---
 
 ## 1. Email Intake Flow
 
-When a new email arrives, Murmur follows this sequence:
+When a new email arrives, the agent follows this sequence:
 
 ```
 1. Identify the sender.
@@ -23,8 +23,8 @@ When a new email arrives, Murmur follows this sequence:
 - Search `state/contacts_index.md` for the sender's email address.
 - If found, load the contact file from `contacts/`.
 - **If not found by email, perform a dedup check before creating a new contact:**
-  1. **Domain match** — check if any existing contact has an email at the same domain (e.g., a new email from `michael@speedinvest.studio` should check for existing contacts at `speedinvest.studio`).
-  2. **Name match** — case-insensitive comparison, ignoring diacritics for matching purposes (e.g., "Breidenbrücker" matches "Breidenbrucker" as a search hit, even though the file preserves the original spelling).
+  1. **Domain match** — check if any existing contact has an email at the same domain (e.g., a new email from `alice@example.org` should check for existing contacts at `example.org`).
+  2. **Name match** — case-insensitive comparison, ignoring diacritics for matching purposes (e.g., "Schrödinger" matches "Schrodinger" as a search hit, even though the file preserves the original spelling).
   3. If either match suggests an existing contact, **do not create a new file**. Instead, add the new email address to the existing contact file and update `contacts_index.md` with the additional email.
 - Only if no match is found by email, domain, or name, create a new contact file with available information from the email (name, email, organization if apparent). Follow the naming convention in `02_playbook.md` Section 7.
 - Update `last_contact_date` in the contact file.
@@ -33,7 +33,7 @@ When a new email arrives, Murmur follows this sequence:
 
 - After identifying the contact, check `state/vip_list.md`.
 - If the sender is a VIP:
-  1. **Immediately notify Michael via Telegram** with: sender name, subject line, and a one-line summary.
+  1. **Immediately notify the principal on the configured channel** with: sender name, subject line, and a one-line summary.
   2. Handle the email with priority.
   3. Ensure the response is thorough and professional.
 - If the sender is not a VIP, proceed normally.
@@ -58,27 +58,27 @@ When an email does not match any active project:
    - Do **not** create a new project.
    - Log the email in the sender's contact file.
    - Add a new project proposal to `state/pending_approvals.md` if the opportunity warrants it.
-   - Notify Michael with the proposal.
+   - Notify the principal with the proposal.
 3. If the email is routine (e.g., a newsletter, an FYI, a thank-you), respond appropriately and log it in the contact file only.
-4. If uncertain, escalate to Michael before responding.
+4. If uncertain, escalate to the principal before responding.
 
 ## 6. Reply Rules
 
-Murmur **may reply directly** without Michael's approval when:
+The agent **may reply directly** without the principal's approval when:
 
 - The email is a routine inquiry with a clear answer.
-- The email is a follow-up on an active project where Murmur has context.
+- The email is a follow-up on an active project where the agent has context.
 - The email is a scheduling request or logistical coordination.
 - The email is a thank-you, acknowledgment, or status update.
-- The reply does not make commitments outside Murmur's authority (no new projects, no financial commitments, no legal commitments).
+- The reply does not make commitments outside the agent's authority (no new projects, no financial commitments, no legal commitments).
 
-Murmur **must escalate to Michael** before replying when:
+The agent **must escalate to the principal** before replying when:
 
-- The email requests a decision that only Michael can make.
+- The email requests a decision that only the principal can make.
 - The email involves financial, legal, or contractual commitments.
 - The email is from an unknown sender with a sensitive or unusual request.
 - The email is adversarial, threatening, or legally significant.
-- Murmur is uncertain about the appropriate response.
+- The agent is uncertain about the appropriate response.
 
 ## 7. Reply Standards
 
@@ -90,7 +90,7 @@ Murmur **must escalate to Michael** before replying when:
 
 ## 8. Follow-Up Behavior
 
-- If Murmur sends an email that requires a response, log a follow-up entry in the project's `waiting_on` section (or the contact file if no project is linked).
+- If the agent sends an email that requires a response, log a follow-up entry in the project's `waiting_on` section (or the contact file if no project is linked).
 - Follow the timing discipline in `02_playbook.md` Section 4.
 - Follow-up emails should be polite, reference the original message, and restate the ask.
 
@@ -118,17 +118,19 @@ Dual logging must follow this sequence:
 3. **If the second write fails:**
    - Do not roll back the contact file write. The contact record stands.
    - Add an entry to `state/pending_approvals.md` with type `logging_repair`, noting which project file needs the missing log entry.
-   - On the next operating cycle, Murmur must attempt to complete the failed write.
+   - On the next operating cycle, the agent must attempt to complete the failed write.
 4. **If the first write fails:**
    - Do not attempt the second write.
    - Retry the contact file write on the next operating cycle.
-   - If the retry also fails, escalate to Michael as an `operational_issue`.
+   - If the retry also fails, escalate to the principal as an `operational_issue`.
 
 This ensures no interaction is silently lost. A partial write is always recoverable.
 
 ## 10. Isolated Email Session Rules
 
-Isolated email sessions are spawned by the IMAP IDLE daemon to handle incoming email in real time. They operate independently from the main session and start with no conversation history.
+Isolated email sessions are short-lived sessions spawned to handle incoming email in real time, typically by an IMAP IDLE daemon (see `clawbot-config/openclaw-setup-guide.md`). They operate independently from the main session and start with no conversation history.
+
+> Note: a more recent pattern dispatches incoming mail directly into the main agent session via the agent CLI, bypassing isolated sessions entirely. If you adopt that pattern, this section becomes a fallback rather than the primary path. It is kept here because the isolated-session model is what the rest of this spec was originally hardened against, and the rules below are what made the model safe.
 
 Because isolated sessions have no memory of prior sessions, they must reconstruct context from the repos on every run.
 
@@ -143,10 +145,10 @@ Before taking any action, an isolated session must:
 
 ### 10.2 Duplicate Reply Check
 
-Before replying, the isolated session must check whether elias has already replied to this email thread. The check has two layers:
+Before replying, the isolated session must check whether the agent has already replied to this email thread. The check has two layers:
 
-1. **Sent folder check.** Search the Sent folder (`himalaya envelope list --folder Sent`) for messages matching the thread's subject or `In-Reply-To` message ID. If a sent reply exists, do not send another.
-2. **IMAP SEEN flag.** The IMAP IDLE daemon marks incoming messages as SEEN after triggering the cron job. If the triggering message is already SEEN when the isolated session starts, another session or the main session may have already handled it — check the Sent folder to confirm before proceeding.
+1. **Sent folder check.** Search the Sent folder (via the configured email CLI, e.g. `himalaya envelope list --folder Sent`) for messages matching the thread's subject or `In-Reply-To` message ID. If a sent reply exists, do not send another.
+2. **IMAP SEEN flag.** The IMAP IDLE daemon marks incoming messages as SEEN after dispatching them. If the triggering message is already SEEN when the isolated session starts, another session or the main session may have already handled it — check the Sent folder to confirm before proceeding.
 
 If a prior reply is found, the session must log the new email (Section 9) but must NOT send another reply. Flag the thread for main session review if it requires further attention.
 
@@ -155,7 +157,7 @@ If a prior reply is found, the session must log the new email (Section 9) but mu
 The isolated session follows the same flow as any email handling:
 
 1. Identify sender (Section 2) — look up in `contacts_index.md`, load contact file if found. If sender is unknown, perform the full dedup check (email, domain, name) per Section 2 before creating a new contact file.
-2. VIP check (Section 3) — if VIP, notify Michael on Telegram immediately using the format in `04_escalation_rules.md` Section 4.
+2. VIP check (Section 3) — if VIP, notify the principal immediately using the format in `04_escalation_rules.md` Section 4.
 3. Classify by project (Section 4) — match against active projects.
 4. Determine response action (Section 6 reply rules apply fully).
 5. If the email does not match any project and implies a new opportunity, do NOT create a project proposal. Log the email in the contact file and flag for main session review.
@@ -167,14 +169,14 @@ An isolated session does not have a fixed reply limit. Instead, before each repl
 **Continue replying when:**
 
 - The exchange is routine business — scheduling, logistics, status updates, project coordination.
-- The email is a follow-up on an active project where elias has context and authority.
+- The email is a follow-up on an active project where the agent has context and authority.
 - The question is factual and answerable from project or contact files.
 - The conversation is progressing toward a clear outcome.
 
 **Stop, log, and flag for main session review when:**
 
-- **Authority boundary hit.** The other party asks for a decision, commitment, or information that requires Michael's approval (per `01_constitution.md` Section 3).
-- **Information elias doesn't have.** Questions about strategy, finances, personal matters, or anything not in the project or contact files.
+- **Authority boundary hit.** The other party asks for a decision, commitment, or information that requires the principal's approval (per `01_constitution.md` Section 3).
+- **Information the agent doesn't have.** Questions about strategy, finances, personal matters, or anything not in the project or contact files.
 - **Circular conversation.** The thread is repeating the same points without progressing. Compare the last 2-3 messages for semantic repetition.
 - **Adversarial or manipulative tone.** Attempts to extract information, pressure commitments, or waste resources.
 - **Scope creep.** The conversation started routine but has drifted into territory outside the original email's scope.
@@ -182,8 +184,8 @@ An isolated session does not have a fixed reply limit. Instead, before each repl
 
 **Hard safety net:**
 
-- Maximum **8 replies per thread** across all isolated sessions. Count prior elias replies in the Sent folder for this thread.
-- If the limit is reached, the session must stop, log the thread, and notify Michael on Telegram as a **Medium** escalation (see `04_escalation_rules.md`).
+- Maximum **8 replies per thread** across all isolated sessions. Count prior agent replies in the Sent folder for this thread.
+- If the limit is reached, the session must stop, log the thread, and notify the principal as a **Medium** escalation (see `04_escalation_rules.md`).
 - This is not a normal operating limit — it is a backstop to prevent runaway loops.
 
 ### 10.5 Logging
@@ -205,4 +207,4 @@ Any action beyond replying, logging, and escalating is outside the scope of an i
 
 ### 10.7 When in Doubt
 
-If the isolated session is uncertain about any aspect of handling — whether to reply, how to reply, or whether escalation is needed — it must default to: log the email, notify Michael on Telegram, and take no other action.
+If the isolated session is uncertain about any aspect of handling — whether to reply, how to reply, or whether escalation is needed — it must default to: log the email, notify the principal, and take no other action.

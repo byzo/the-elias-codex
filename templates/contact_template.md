@@ -23,7 +23,7 @@
 
 | Field | Value |
 |---|---|
-| **relationship_summary** | [How Michael/Murmur knows this person. 1-2 sentences.] |
+| **relationship_summary** | [How the principal / the agent knows this person. 1-2 sentences.] |
 | **vip_status** | [yes / no] |
 | **first_contact_date** | [YYYY-MM-DD] |
 | **last_contact_date** | [YYYY-MM-DD] |

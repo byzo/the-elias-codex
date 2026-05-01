@@ -37,7 +37,7 @@
 |---|---|
 | **current_goal** | [The one approved immediate next goal] |
 | **current_goal_status** | [in_progress / completed / blocked] |
-| **next_proposed_goal** | [Murmur's proposed next goal, if current is completed] |
+| **next_proposed_goal** | [The agent's proposed next goal, if current is completed] |
 | **goal_approval_status** | [approved / pending / not_applicable] |
 
 ## People
