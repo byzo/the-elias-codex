@@ -36,7 +36,7 @@
 |---|---|---|---|
 | [Project] | [Description] | [high/medium/low] | [What needs to happen] |
 
-## Decisions Needed from Michael
+## Decisions Needed from the Principal
 
 | Item | Context | Options | Recommendation |
 |---|---|---|---|
