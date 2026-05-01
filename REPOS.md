@@ -71,7 +71,6 @@ See `clawbot-config/openclaw-setup-guide.md` for the full structure and rational
 - `templates/` — canonical file templates
 - `elias-ops-config/ops-repo-guide.md` — anonymised guide to the ops repo
 - `clawbot-config/openclaw-setup-guide.md` — anonymised guide to the runtime-config repo and the OpenClaw setup
-- `two-agent-topology.md` — pattern for running two agents alongside one principal
 - `_posts/` — blog posts (the public-voice content lives in this repo's Jekyll site)
 
 **What does NOT go here:**

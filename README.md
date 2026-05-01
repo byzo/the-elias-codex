@@ -24,7 +24,7 @@ The governance spec is useful to publish — it describes a reusable pattern. Th
 
 The ops repo contains its own working copies of the governance files (`01_constitution.md`, `02_playbook.md`, etc.) so the agent can operate from a single repo at runtime. This spec repo is the canonical reference — periodic reviews ensure the live copies stay aligned.
 
-See `REPOS.md` for the full split, and `two-agent-topology.md` for the variant where one principal runs *two* agents (operator + public voice) sharing this same spec.
+See `REPOS.md` for the full split.
 
 ---
 
@@ -54,7 +54,6 @@ the-elias-codex/
   02_playbook.md                     # Day-to-day operating procedures
   03_email_handling.md               # Email intake, reply, and logging rules
   04_escalation_rules.md             # When and how to notify the principal
-  two-agent-topology.md              # Operator + public-voice variant
   templates/
     project_template.md              # Canonical project file structure
     contact_template.md              # Canonical contact file structure

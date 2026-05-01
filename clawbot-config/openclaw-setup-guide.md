@@ -417,5 +417,4 @@ Governance behaviour (single-goal execution, authority boundaries, escalation, l
 ## Where to go next
 
 - For the ops repo structure (projects, contacts, state, candidates, reviews, in-container scripts), see `elias-ops-config/ops-repo-guide.md`.
-- For the two-agent topology pattern (separate ops repos, shared spec, role split), see `two-agent-topology.md`.
 - For governance rules, see `01_constitution.md`, `02_playbook.md`, `03_email_handling.md`, `04_escalation_rules.md`.
