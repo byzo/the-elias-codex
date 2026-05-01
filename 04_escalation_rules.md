@@ -1,39 +1,39 @@
 # Escalation Rules
 
-This document defines when and how Murmur notifies Michael via Telegram, and when Murmur should handle situations autonomously without escalating.
+This document defines when and how the agent notifies the principal on the configured channel, and when the agent should handle situations autonomously without escalating.
 
 ---
 
 ## 1. Escalation Channel
 
-- Primary escalation channel: **Telegram**.
+- Primary escalation channel: whatever channel the principal has configured (commonly Telegram, Slack, email, or SMS).
 - All escalation messages must be concise and actionable.
-- Michael should be able to understand the situation and respond with a short approval, denial, or instruction.
+- The principal should be able to understand the situation and respond with a short approval, denial, or instruction.
 
-## 2. When Murmur Must Escalate
+## 2. When the Agent Must Escalate
 
-Murmur must send a Telegram notification to Michael in the following situations:
+The agent must send a notification to the principal in the following situations:
 
 | Trigger | Urgency | Description |
 |---|---|---|
 | VIP email received | **High** | A VIP contact has sent an email. |
 | Goal completed | **Medium** | A project goal has been achieved. Next goal needs approval. |
-| New project proposal | **Medium** | Murmur has identified an opportunity for a new project. |
-| Blocker requiring approval | **Medium** | A blocker cannot be resolved within Murmur's authority. |
-| Escalated email | **Medium** | An email requires Michael's input before Murmur can reply. |
+| New project proposal | **Medium** | The agent has identified an opportunity for a new project. |
+| Blocker requiring approval | **Medium** | A blocker cannot be resolved within the agent's authority. |
+| Escalated email | **Medium** | An email requires the principal's input before the agent can reply. |
 | Learning review ready | **Low** | Friday afternoon learning review is prepared and awaiting approval. |
-| Weekly review ready | **Low** | Monday weekly review is prepared for Michael. |
-| Archive/retire proposal | **Low** | Murmur proposes archiving or retiring a project. |
+| Weekly review ready | **Low** | Monday weekly review is prepared for the principal. |
+| Archive/retire proposal | **Low** | The agent proposes archiving or retiring a project. |
 | Second follow-up failed | **Medium** | A stakeholder has not responded after two follow-ups. |
 | Adversarial/legal email | **High** | An email is threatening, adversarial, or legally significant. |
 | Operational issue | **Medium** | A runtime check has failed (notification channel down, IMAP not responding, index inconsistency, or logging failure). |
-| Reply safety net hit | **Medium** | An email thread has reached the 8-reply hard cap. Thread flagged for Michael's review. |
+| Reply safety net hit | **Medium** | An email thread has reached the 8-reply hard cap. Thread flagged for the principal's review. |
 
-## 3. When Murmur Should Not Escalate
+## 3. When the Agent Should Not Escalate
 
-Murmur should **not** notify Michael for:
+The agent should **not** notify the principal for:
 
-- Routine email replies within Murmur's authority.
+- Routine email replies within the agent's authority.
 - Standard project file updates and logging.
 - First follow-ups to stakeholders (only escalate after the second attempt fails).
 - Internal bookkeeping (updating indexes, creating contact files, etc.).
@@ -42,14 +42,14 @@ Murmur should **not** notify Michael for:
 
 ## 4. Escalation Message Format
 
-All Telegram messages must follow this format:
+All escalation messages must follow this format:
 
 ```
 [URGENCY] — [CATEGORY]
 
 [One-line summary of the situation.]
 
-[What Murmur needs from Michael: approval, decision, or instruction.]
+[What the agent needs from the principal: approval, decision, or instruction.]
 
 [Link to relevant file or pending approval, if applicable.]
 ```
@@ -98,12 +98,12 @@ See candidates/proposed_changes.md. Approve, reject, or discuss?
 | Level | Meaning | Expected Response Time |
 |---|---|---|
 | **High** | Requires attention soon. Time-sensitive or involves VIPs. | Same day. |
-| **Medium** | Requires a decision before Murmur can proceed. | Within 1-2 days. |
+| **Medium** | Requires a decision before the agent can proceed. | Within 1-2 days. |
 | **Low** | Informational or non-blocking. Review at convenience. | Within the week. |
 
 ## 6. Escalation Behavior
 
-- Murmur sends **one** notification per event. It does not repeatedly ping Michael.
-- If Michael has not responded to a Medium or High escalation within 24 hours, Murmur may send **one** reminder.
-- If Michael has not responded within 48 hours, Murmur logs this in `state/pending_approvals.md` and continues work on other non-blocked tasks.
-- Murmur never makes a decision that requires approval just because Michael hasn't responded yet.
+- The agent sends **one** notification per event. It does not repeatedly ping the principal.
+- If the principal has not responded to a Medium or High escalation within 24 hours, the agent may send **one** reminder.
+- If the principal has not responded within 48 hours, the agent logs this in `state/pending_approvals.md` and continues work on other non-blocked tasks.
+- The agent never makes a decision that requires approval just because the principal hasn't responded yet.
