@@ -27,8 +27,8 @@
 
 | Project | Goal for the Week |
 |---|---|
-| [Project 1] | [What Murmur aims to achieve] |
-| [Project 2] | [What Murmur aims to achieve] |
+| [Project 1] | [What the agent aims to achieve] |
+| [Project 2] | [What the agent aims to achieve] |
 
 ## Blockers
 
@@ -40,7 +40,7 @@
 
 | Item | Context | Options | Recommendation |
 |---|---|---|---|
-| [Decision] | [Why it's needed] | [Options A, B, C] | [What Murmur recommends] |
+| [Decision] | [Why it's needed] | [Options A, B, C] | [What the agent recommends] |
 
 ## Possible New Projects
 
